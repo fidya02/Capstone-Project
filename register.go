@@ -33,7 +33,6 @@ func register() User {
 	fmt.Scanln(&newUser.TempatLahir)
 	newUser.TempatLahir = newUser.TempatLahir[:min(len(newUser.TempatLahir), 20)]
 
-	fmt.Print("Tanggal Lahir (DD/MM/YYYY): ")
 	fmt.Scanln(&newUser.TanggalLahir)
 	for !isValidDateFormat(newUser.TanggalLahir) {
 		fmt.Print("Tanggal Lahir (DD/MM/YYYY): ")
