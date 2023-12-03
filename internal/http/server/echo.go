@@ -1,11 +1,13 @@
 package server
 
 import (
-	"github.com/gorilla/sessions"
-	"github.com/labstack/echo-contrib/session"
-	"honnef.co/go/tools/config"
+	// "github.com/gorilla/sessions"
+	// "github.com/labstack/echo-contrib/session"
 
 	// echojwt "github.com/labstack/echo-jwt/v4"
+	"github.com/fidya02/Capstone-Project/internal/config"
+	"github.com/fidya02/Capstone-Project/internal/http/binder"
+	"github.com/fidya02/Capstone-Project/internal/http/router"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -26,7 +28,7 @@ func NewServer(
 		middleware.Logger(),
 		middleware.Recover(),
 		middleware.CORS(),
-		session.Middleware(sessions.NewCookieStore([]byte(cfg.Session.SecretKey))),
+		// session.Middleware(sessions.NewCookieStore([]byte(cfg.Session.SecretKey))),
 	)
 
 	v1 := e.Group("/api/v1")
@@ -37,7 +39,8 @@ func NewServer(
 
 	for _, private := range privateRoutes {
 		// v1.Add(private.Method, private.Path, private.Handler, JWTProtected(cfg.JWT.SecretKey), SessionProtected())
-		v1.Add(private.Method, private.Path, private.Handler, JWTProtected(cfg.JWT.SecretKey), RBACMiddleware(private.Roles...))
+		// v1.Add(private.Method, private.Path, private.Handler, JWTProtected(cfg.JWT.SecretKey), RBACMiddleware(private.Roles...))
+		v1.Add(private.Method, private.Path, private.Handler)
 	}
 
 	e.GET("/ping", func(c echo.Context) error {

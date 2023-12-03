@@ -15,6 +15,6 @@ func PublicRoutes() []*Route {
 	return []*Route{}
 }
 
-func privateRoutes() []*Route {
+func PrivateRoutes() []*Route {
 	return []*Route{}
 }
