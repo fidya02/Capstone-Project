@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/fidya02/capstone-project/entity"
+	"github.com/fidya02/Capstone-Project/entity"
 	"gorm.io/gorm"
 )
 

@@ -4,9 +4,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/fidya02/capstone-project/common"
-	"github.com/fidya02/capstone-project/entity"
-	"github.com/fidya02/capstone-project/internal/config"
+	"github.com/fidya02/Capstone-Project/common"
+	"github.com/fidya02/Capstone-Project/entity"
+	"github.com/fidya02/Capstone-Project/internal/config"
+
 	"github.com/golang-jwt/jwt/v5"
 )
 

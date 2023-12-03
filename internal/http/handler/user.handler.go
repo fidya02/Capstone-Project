@@ -3,10 +3,10 @@ package handler
 import (
 	"net/http"
 
-	"github.com/fidya02/capstone-project/entity"
-	"github.com/fidya02/capstone-project/internal/config"
-	"github.com/fidya02/capstone-project/internal/http/validator"
-	"github.com/fidya02/capstone-project/internal/service"
+	"github.com/fidya02/Capstone-Project/entity"
+	"github.com/fidya02/Capstone-Project/internal/config"
+	"github.com/fidya02/Capstone-Project/internal/http/validator"
+	"github.com/fidya02/Capstone-Project/internal/service"
 	"github.com/labstack/echo/v4"
 )
 

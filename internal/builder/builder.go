@@ -4,6 +4,7 @@ import (
 	"github.com/fidya02/Capstone-Project/internal/config"
 	"github.com/fidya02/Capstone-Project/internal/http/handler"
 	"github.com/fidya02/Capstone-Project/internal/http/router"
+	"github.com/fidya02/Capstone-Project/internal/repository"
 	"github.com/fidya02/Capstone-Project/internal/service"
 
 	"gorm.io/gorm"
