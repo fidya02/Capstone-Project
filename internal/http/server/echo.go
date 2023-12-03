@@ -1,15 +1,19 @@
 package server
 
 import (
-	// "github.com/gorilla/sessions"
-	// "github.com/labstack/echo-contrib/session"
+	"net/http"
 
-	// echojwt "github.com/labstack/echo-jwt/v4"
-	"github.com/fidya02/Capstone-Project/internal/config"
-	"github.com/fidya02/Capstone-Project/internal/http/binder"
-	"github.com/fidya02/Capstone-Project/internal/http/router"
+	"github.com/fidya02/capstone-project/common"
+	"github.com/fidya02/capstone-project/internal/config"
+	"github.com/fidya02/capstone-project/internal/http/binder"
+	"github.com/fidya02/capstone-project/internal/http/router"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
+	echojwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Server struct {
@@ -28,7 +32,7 @@ func NewServer(
 		middleware.Logger(),
 		middleware.Recover(),
 		middleware.CORS(),
-		// session.Middleware(sessions.NewCookieStore([]byte(cfg.Session.SecretKey))),
+		session.Middleware(sessions.NewCookieStore([]byte(cfg.Session.SecretKey))),
 	)
 
 	v1 := e.Group("/api/v1")
@@ -39,64 +43,63 @@ func NewServer(
 
 	for _, private := range privateRoutes {
 		// v1.Add(private.Method, private.Path, private.Handler, JWTProtected(cfg.JWT.SecretKey), SessionProtected())
-		// v1.Add(private.Method, private.Path, private.Handler, JWTProtected(cfg.JWT.SecretKey), RBACMiddleware(private.Roles...))
-		v1.Add(private.Method, private.Path, private.Handler)
+		v1.Add(private.Method, private.Path, private.Handler, JWTProtected(cfg.JWT.SecretKey), RBACMiddleware(private.Roles...))
 	}
 
 	e.GET("/ping", func(c echo.Context) error {
 		return c.String(200, "pong")
 	})
 
-	// e.GET("/generate-password/:password", func(c echo.Context) error {
-	// 	password := c.Param("password")
-	// 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	// 	return c.String(200, string(hashedPassword))
-	// })
+	e.GET("/generate-password/:password", func(c echo.Context) error {
+		password := c.Param("password")
+		hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+		return c.String(200, string(hashedPassword))
+	})
 
 	return &Server{e}
 }
 
-// func JWTProtected(secretKey string) echo.MiddlewareFunc {
-// 	return echojwt.WithConfig(echojwt.Config{
-// 		NewClaimsFunc: func(c echo.Context) jwt.Claims {
-// 			return new(common.JwtCustomClaims)
-// 		},
-// 		SigningKey: []byte(secretKey),
-// 	})
-// }
+func JWTProtected(secretKey string) echo.MiddlewareFunc {
+	return echojwt.WithConfig(echojwt.Config{
+		NewClaimsFunc: func(c echo.Context) jwt.Claims {
+			return new(common.JwtCustomClaims)
+		},
+		SigningKey: []byte(secretKey),
+	})
+}
 
-// func SessionProtected() echo.MiddlewareFunc {
-// 	return func(next echo.HandlerFunc) echo.HandlerFunc {
-// 		return func(ctx echo.Context) error {
-// 			sess, _ := session.Get("auth-sessions", ctx)
-// 			if sess.Values["token"] == nil {
-// 				return ctx.JSON(http.StatusUnauthorized, map[string]string{"error": "silahkan login terlebih dahulu"})
-// 			}
-// 			ctx.Set("user", sess.Values["token"])
-// 			return next(ctx)
-// 		}
-// 	}
-// }
+func SessionProtected() echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(ctx echo.Context) error {
+			sess, _ := session.Get("auth-sessions", ctx)
+			if sess.Values["token"] == nil {
+				return ctx.JSON(http.StatusUnauthorized, map[string]string{"error": "silahkan login terlebih dahulu"})
+			}
+			ctx.Set("user", sess.Values["token"])
+			return next(ctx)
+		}
+	}
+}
 
-// func RBACMiddleware(roles ...string) echo.MiddlewareFunc {
-// 	return func(next echo.HandlerFunc) echo.HandlerFunc {
-// 		return func(c echo.Context) error {
-// 			user, ok := c.Get("user").(*jwt.Token)
-// 			if !ok {
-// 				return c.JSON(http.StatusUnauthorized, map[string]string{"error": "silahkan login terlebih dahulu"})
-// 			}
+func RBACMiddleware(roles ...string) echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			user, ok := c.Get("user").(*jwt.Token)
+			if !ok {
+				return c.JSON(http.StatusUnauthorized, map[string]string{"error": "silahkan login terlebih dahulu"})
+			}
 
-// 			claims := user.Claims.(*common.JwtCustomClaims)
+			claims := user.Claims.(*common.JwtCustomClaims)
 
-// 			// Check if the user has the required role
-// 			if !contains(roles, claims.Role) {
-// 				return c.JSON(http.StatusForbidden, map[string]string{"error": "anda tidak diperbolehkan untuk mengakses resource ini"})
-// 			}
+			// Check if the user has the required role
+			if !contains(roles, claims.Role) {
+				return c.JSON(http.StatusForbidden, map[string]string{"error": "anda tidak diperbolehkan untuk mengakses resource ini"})
+			}
 
-// 			return next(c)
-// 		}
-// 	}
-// }
+			return next(c)
+		}
+	}
+}
 
 // Helper function to check if a string is in a slice of strings
 func contains(slice []string, s string) bool {
