@@ -47,8 +47,8 @@ func (s *UserService) Create(ctx context.Context, user *entity.User) error {
 
 func (s *UserService) Update(ctx context.Context, user *entity.User) error {
 	if user.Role != "" {
-		if user.Role != "Administrator" && user.Role != "Editor" {
-			return errors.New("role harus di isi Administrator / Editor")
+		if user.Role != "Administrator" && user.Role != "Buyer" {
+			return errors.New("role harus di isi Administrator / Buyer")
 		}
 	}
 	if user.Password != "" {

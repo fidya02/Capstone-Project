@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 
+	"github.com/fidya02/Capstone-Project/entity"
 	"github.com/fidya02/Capstone-Project/internal/http/validator"
 	"github.com/fidya02/Capstone-Project/internal/service"
 
@@ -10,17 +11,20 @@ import (
 )
 
 type AuthHandler struct {
-	loginService service.LoginUseCase
-	tokenService service.TokenUseCase
+	loginService    service.LoginUseCase
+	registerService service.RegisterUseCase
+	tokenService    service.TokenUseCase
 }
 
 func NewAuthHandler(
 	loginService service.LoginUseCase,
+	registerService service.RegisterUseCase,
 	tokenService service.TokenUseCase,
 ) *AuthHandler {
 	return &AuthHandler{
-		loginService: loginService,
-		tokenService: tokenService,
+		loginService:    loginService,
+		registerService: registerService,
+		tokenService:    tokenService,
 	}
 }
 
@@ -50,17 +54,33 @@ func (h *AuthHandler) Login(ctx echo.Context) error {
 		"access_token": accessToken,
 	}
 
-	// sess, _ := session.Get("auth-sessions", ctx)
-	// sess.Options = &sessions.Options{
-	// 	Path:     "/",
-	// 	MaxAge:   600,
-	// 	HttpOnly: true,
-	// }
-	// sess.Values["token"] = accessToken
-	// err = sess.Save(ctx.Request(), ctx.Response())
-	// if err != nil {
-	// 	return ctx.JSON(http.StatusUnprocessableEntity, err)
-	// }
-
 	return ctx.JSON(http.StatusOK, data)
+}
+
+func (h *AuthHandler) Regist(ctx echo.Context) error {
+	var input struct {
+		Email    string `json:"email" validate:"required,email"`
+		Password string `json:"password" validate:"required,min=8"`
+		Roles    string `json:"roles" default:"Buyer"`
+	}
+
+	if err := ctx.Bind(&input); err != nil {
+		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
+	}
+
+	user := entity.Regist(input.Email, input.Password, input.Roles)
+	err := h.registerService.Registration(ctx.Request().Context(), user)
+	if err != nil {
+		return ctx.JSON(http.StatusUnprocessableEntity, err)
+	}
+
+	accessToken, err := h.tokenService.GenerateAccessToken(ctx.Request().Context(), user)
+	if err != nil {
+		return ctx.JSON(http.StatusUnprocessableEntity, err)
+	}
+
+	return ctx.JSON(http.StatusOK, map[string]interface{}{
+		"message":      "User register successfully",
+		"access_token": accessToken,
+	})
 }

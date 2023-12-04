@@ -7,13 +7,13 @@ import (
 
 const (
 	Administrator = "Administrator"
-	Editor        = "Editor"
+	Buyer         = "Buyer"
 )
 
 var (
-	allRoles   = []string{Administrator, Editor}
-	onlyAdmin  = []string{Administrator}
-	onlyEditor = []string{Editor}
+	allRoles  = []string{Administrator, Buyer}
+	onlyAdmin = []string{Administrator}
+	onlyBuyer = []string{Buyer}
 )
 
 type Route struct {
@@ -29,6 +29,11 @@ func PublicRoutes(authHandler *handler.AuthHandler) []*Route {
 			Method:  echo.POST,
 			Path:    "/login",
 			Handler: authHandler.Login,
+		},
+		{
+			Method:  echo.POST,
+			Path:    "/register",
+			Handler: authHandler.Regist,
 		},
 	}
 }
@@ -51,13 +56,13 @@ func PrivateRoutes(userHandler *handler.UserHandler) []*Route {
 			Method:  echo.POST,
 			Path:    "/users",
 			Handler: userHandler.CreateUser,
-			Roles:   onlyEditor,
+			Roles:   onlyBuyer,
 		},
 		{
 			Method:  echo.PUT,
 			Path:    "/users/:id",
 			Handler: userHandler.UpdateUser,
-			Roles:   onlyEditor,
+			Roles:   onlyBuyer,
 		},
 		{
 			Method:  echo.DELETE,

@@ -34,7 +34,7 @@ func (h *UserHandler) CreateUser(ctx echo.Context) error {
 		Name     string `json:"name" validate:"required"`
 		Email    string `json:"email" validate:"required"`
 		Password string `json:"password" validate:"required"`
-		Role     string `json:"role" validate:"required,oneof=Administrator Editor"`
+		Role     string `json:"role" validate:"required,oneof=Administrator Buyer"`
 	}
 
 	if err := ctx.Bind(&input); err != nil {
