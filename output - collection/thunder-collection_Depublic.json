@@ -1,0 +1,151 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Depublic",
+    "dateExported": "2023-12-04T15:00:52.094Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "4e32eb91-60b4-423e-b657-bc9c5d339ab1",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "Login",
+            "url": "http://localhost:8080/api/v1/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-12-04T14:17:00.302Z",
+            "modified": "2023-12-04T14:52:35.154Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"ujang@gmail.com\",\n  \"password\": \"depublicticketing\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f1737c5e-d1f5-4a6c-a5b0-ae00fcf715f2",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "Register",
+            "url": "http://localhost:8080/api/v1/register",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-12-04T14:17:21.708Z",
+            "modified": "2023-12-04T14:44:55.288Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\" : \"syifa@yoyoi.yoi\",\n  \"password\" : \"syifaaja\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BnbWFpbC5jb20iLCJyb2xlIjoiQWRtaW5pc3RyYXRvciIsImV4cCI6MTcwMTcwMTU3N30.ZD_TuSUCYDU5AFIefqVVrhmrGEkbgqai5JHdtv6F1o4"
+            },
+            "tests": []
+        },
+        {
+            "_id": "67e3eed7-1f3b-4c8e-87b7-97dcf6f2ff57",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "getallusers",
+            "url": "http://localhost:8080/api/v1/users",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-12-04T14:19:26.659Z",
+            "modified": "2023-12-04T14:45:16.403Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BnbWFpbC5jb20iLCJyb2xlIjoiQWRtaW5pc3RyYXRvciIsImV4cCI6MTcwMTcwMTU3N30.ZD_TuSUCYDU5AFIefqVVrhmrGEkbgqai5JHdtv6F1o4"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b3557bb9-a97b-4688-a7ca-842490668167",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "createusers",
+            "url": "http://localhost:8080/api/v1/users",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-12-04T14:19:45.457Z",
+            "modified": "2023-12-04T14:56:57.603Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"7\",\n  \"name\": \"lina\",\n  \"email\": \"lin@yahoo.id\",\n  \"password\": \"linlin123\",\n  \"role\": \"Administrator\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6InVqYW5nIiwiZW1haWwiOiJ1amFuZ0BnbWFpbC5jb20iLCJyb2xlIjoiQnV5ZXIiLCJleHAiOjE3MDE3MDIxNjB9.SE-5-Mnyq8RoKMwIr-PTl6_H-WuP7i35qGeBbxrpwt8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "c788de07-1af1-4661-bd19-869713995dec",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "updateusers",
+            "url": "http://localhost:8080/api/v1/users/3",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2023-12-04T14:21:28.365Z",
+            "modified": "2023-12-04T14:53:54.741Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"Ujang\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6InVqYW5nIiwiZW1haWwiOiJ1amFuZ0BnbWFpbC5jb20iLCJyb2xlIjoiQnV5ZXIiLCJleHAiOjE3MDE3MDIxNjB9.SE-5-Mnyq8RoKMwIr-PTl6_H-WuP7i35qGeBbxrpwt8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "3498b757-4ec7-4359-ae17-13989d326bd6",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "deleteusers",
+            "url": "http://localhost:8080/api/v1/users/4",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2023-12-04T14:22:37.187Z",
+            "modified": "2023-12-04T14:58:30.966Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BnbWFpbC5jb20iLCJyb2xlIjoiQWRtaW5pc3RyYXRvciIsImV4cCI6MTcwMTcwMjExOX0.D5X5SF-0_-9ZJnA9OBinkVTVrmYsAkL4DV61dJexI58"
+            },
+            "tests": []
+        },
+        {
+            "_id": "4e9c77b3-93ac-452d-83a8-72c8e62005e1",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "searchbyid",
+            "url": "http://localhost:8080/api/v1/users/4",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-12-04T14:23:06.697Z",
+            "modified": "2023-12-04T14:58:56.329Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6InVqYW5nIiwiZW1haWwiOiJ1amFuZ0BnbWFpbC5jb20iLCJyb2xlIjoiQnV5ZXIiLCJleHAiOjE3MDE3MDIxNjB9.SE-5-Mnyq8RoKMwIr-PTl6_H-WuP7i35qGeBbxrpwt8"
+            },
+            "tests": []
+        }
+    ]
+}

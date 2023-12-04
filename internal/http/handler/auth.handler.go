@@ -11,19 +11,19 @@ import (
 )
 
 type AuthHandler struct {
-	loginService    service.LoginUseCase
 	registerService service.RegisterUseCase
+	loginService    service.LoginUseCase
 	tokenService    service.TokenUseCase
 }
 
 func NewAuthHandler(
-	loginService service.LoginUseCase,
 	registerService service.RegisterUseCase,
+	loginService service.LoginUseCase,
 	tokenService service.TokenUseCase,
 ) *AuthHandler {
 	return &AuthHandler{
-		loginService:    loginService,
 		registerService: registerService,
+		loginService:    loginService,
 		tokenService:    tokenService,
 	}
 }
@@ -57,7 +57,7 @@ func (h *AuthHandler) Login(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, data)
 }
 
-func (h *AuthHandler) Regist(ctx echo.Context) error {
+func (h *AuthHandler) Register(ctx echo.Context) error {
 	var input struct {
 		Email    string `json:"email" validate:"required,email"`
 		Password string `json:"password" validate:"required,min=8"`
@@ -69,7 +69,7 @@ func (h *AuthHandler) Regist(ctx echo.Context) error {
 	}
 
 	user := entity.Regist(input.Email, input.Password, input.Roles)
-	err := h.registerService.Registration(ctx.Request().Context(), user)
+	err := h.registerService.Register(ctx.Request().Context(), user)
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
 	}
