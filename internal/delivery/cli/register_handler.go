@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strings"
 	"time"
 )
@@ -26,26 +24,14 @@ func isValidDateFormat(dateStr string) bool {
 func register() User {
 	var newUser User
 
-	reader := bufio.NewReader(os.Stdin)
-
 	fmt.Println("=== Registrasi Akun ===")
 	fmt.Print("Nama Lengkap (max 50 karakter): ")
-	inputNamaLengkap, _ := reader.ReadString('\n')
-	inputNamaLengkap = strings.TrimSpace(inputNamaLengkap)
-	newUser.NamaLengkap = inputNamaLengkap
-
-	if len(newUser.NamaLengkap) > 50 {
-		newUser.NamaLengkap = newUser.NamaLengkap[:50]
-	}
+	fmt.Scanln(&newUser.NamaLengkap)
+	newUser.NamaLengkap = newUser.NamaLengkap[:min(len(newUser.NamaLengkap), 50)]
 
 	fmt.Print("Tempat Lahir (max 20 karakter): ")
-	tempatLahir, _ := reader.ReadString('\n')
-	tempatLahir = strings.TrimSpace(tempatLahir)
-	newUser.TempatLahir = tempatLahir
-
-	if len(newUser.TempatLahir) > 20 {
-		newUser.TempatLahir = newUser.TempatLahir[:20]
-	}
+	fmt.Scanln(&newUser.TempatLahir)
+	newUser.TempatLahir = newUser.TempatLahir[:min(len(newUser.TempatLahir), 20)]
 
 	fmt.Scanln(&newUser.TanggalLahir)
 	for !isValidDateFormat(newUser.TanggalLahir) {
@@ -60,7 +46,6 @@ func register() User {
 	fmt.Print("Email (max 20 karakter): ")
 	fmt.Scanln(&newUser.Email)
 	newUser.Email = newUser.Email[:min(len(newUser.Email), 20)]
-	fmt.Printf("Email: %s\n", newUser.Email)
 
 	fmt.Print("Password (max 10 karakter): ")
 	fmt.Scanln(&newUser.Password)
