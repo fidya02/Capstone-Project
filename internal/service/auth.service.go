@@ -46,29 +46,29 @@ func (s *LoginService) Login(ctx context.Context, email, password string) (*enti
 }
 
 type RegisterUseCase interface {
-	Registration(ctx context.Context, user *entity.User) error
+	Register(ctx context.Context, user *entity.User) error
 }
 
 type RegisterRepository interface {
-	Registration(ctx context.Context, user *entity.User) error
+	Register(ctx context.Context, user *entity.User) error
 }
 
-type registrationService struct {
+type registerService struct {
 	repository RegisterRepository
 }
 
-func NewRegistrationService(repository RegisterRepository) *registrationService {
-	return &registrationService{
+func NewRegisterService(repository RegisterRepository) *registerService {
+	return &registerService{
 		repository: repository,
 	}
 }
 
-func (s *registrationService) Registration(ctx context.Context, user *entity.User) error {
+func (s *registerService) Register(ctx context.Context, user *entity.User) error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
 
 	user.Password = string(hashedPassword)
-	return s.repository.Registration(ctx, user)
+	return s.repository.Register(ctx, user)
 }

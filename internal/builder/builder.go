@@ -11,10 +11,12 @@ import (
 )
 
 func BuildPublicRoutes(cfg *config.Config, db *gorm.DB) []*router.Route {
+	registerRepository := repository.NewRegisterRepository(db)
+	registerService := service.NewRegisterService(registerRepository)
 	userRepository := repository.NewUserRepository(db)
 	loginService := service.NewLoginService(userRepository)
 	tokenService := service.NewTokenService(cfg)
-	authHandler := handler.NewAuthHandler(loginService, tokenService)
+	authHandler := handler.NewAuthHandler(registerService, loginService, tokenService)
 	return router.PublicRoutes(authHandler)
 }
 

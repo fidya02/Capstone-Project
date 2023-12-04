@@ -33,7 +33,7 @@ func PublicRoutes(authHandler *handler.AuthHandler) []*Route {
 		{
 			Method:  echo.POST,
 			Path:    "/register",
-			Handler: authHandler.Regist,
+			Handler: authHandler.Register,
 		},
 	}
 }

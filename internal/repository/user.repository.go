@@ -20,7 +20,7 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 
 func (r *UserRepository) FindAll(ctx context.Context) ([]*entity.User, error) {
 	users := make([]*entity.User, 0)
-	err := r.db.WithContext(ctx).Find(&users).Error // SELECT * FROM users
+	err := r.db.WithContext(ctx).Find(&users).Error
 	if err != nil {
 		return nil, err
 	}
