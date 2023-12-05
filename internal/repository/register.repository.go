@@ -18,7 +18,7 @@ func NewRegisterRepository(db *gorm.DB) *RegisterRepository {
 	}
 }
 
-func (r *RegisterRepository) Registration(ctx context.Context, user *entity.User) error {
+func (r *RegisterRepository) Register(ctx context.Context, user *entity.User) error {
 	err := r.db.WithContext(ctx).Create(&user).Error
 	if err != nil {
 		return err
