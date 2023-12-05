@@ -70,5 +70,43 @@ func PrivateRoutes(userHandler *handler.UserHandler) []*Route {
 			Handler: userHandler.DeleteUser,
 			Roles:   onlyAdmin,
 		},
+		{
+			Method:  echo.POST,
+			Path:    "/orders",
+			Handler: Orderhandler.CreateOrders,
+			Roles:   allRoles,
+		},
+		{
+			Method:  echo.GET,
+			Path:    "/orders",
+			Handler: Orderhandler.GetAllOrders,
+			Roles:   onlyAdmin,
+		},
+		{
+			Method:  echo.GET,
+			Path:    "/orders/:id",
+			Handler: Orderhandler.GetOrderByUserID,
+			Roles:   allRoles,
+		},
+		{
+			Method:  echo.GET,
+			Path:    "/orders/history",
+			Handler: Orderhandler.GetOrderHistory,
+			Roles:   onlyBuyer,
+		},
+		{
+			//UserCreateOrder:
+			Method:  echo.POST,
+			Path:    "user/orders",
+			Handler: Orderhandler.UserCreateOrder,
+			Roles:   onlyBuyer,
+		},
+		{
+			//GetOrderHistory:
+			Method:  echo.GET,
+			Path:    "user/orders/",
+			Handler: Orderhandler.GetOrderHistory,
+			Roles:   onlyBuyer,
+		},
 	}
 }
