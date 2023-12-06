@@ -158,6 +158,30 @@ func PrivateRoutes(
 			Handler: TicketHandler.DeleteTicket,
 			Roles:   onlyAdmin,
 		},
+
+		//create notification
+		{
+			Method:  echo.POST,
+			Path:    "/notifications",
+			Handler: NotificationHandler.CreateNotification,
+			Role:    onlyAdmin,
+		},
+
+		//Get all notifications
+		{
+			Method:  echo.GET,
+			Path:    "/notifications",
+			Handler: NotificationHandler.GetAllNotifications,
+			Role:    allRoles,
+		},
+
+		//UserGetNotifications
+		{
+			Method:  echo.GET,
+			Path:    "user/notifications",
+			Handler: NotificationHandler.UserGetNotification,
+			Role:    allRoles,
+
 		{
 			Method:  echo.POST,
 			Path:    "/order",
@@ -191,6 +215,7 @@ func PrivateRoutes(
 			Path:    "user/order",
 			Handler: OrderHandler.GetOrderHistory,
 			Roles:   onlyBuyer,
+
 		},
 	}
 }

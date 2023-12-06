@@ -31,6 +31,12 @@ func BuildPrivateRoutes(cfg *config.Config, db *gorm.DB) []*router.Route {
 	tickethandler := handler.NewTicketHandler(ticketService)
 	userHandler := handler.NewUserHandler(cfg, userService)
 
+
+	NotificationRepository := repository.NewNotificationRepository(db)
+	NotificationService := service.NewNotificationService(NotificationRepository)
+	NotificationHandler := handler.NewNotificationHandler(NotificationService)
+	return router.PrivateRoutes(userHandler, NotificationHandler)
+
 	OrderRepository := repository.NewOrderRepository(db)
 	OrderService := service.NewOrderService(OrderRepository)
 	OrderHandler := handler.NewOrderHandler(OrderService)
