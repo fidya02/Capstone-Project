@@ -105,7 +105,8 @@ func PublicRoutes(
 
 func PrivateRoutes(
 	userHandler *handler.UserHandler,
-	TicketHandler *handler.TicketHandler) []*Route {
+	TicketHandler *handler.TicketHandler,
+	OrderHandler *handler.OrderHandler) []*Route {
 	return []*Route{
 		{
 			Method:  echo.GET,
@@ -156,6 +157,40 @@ func PrivateRoutes(
 			Path:    "/tickets/:id",
 			Handler: TicketHandler.DeleteTicket,
 			Roles:   onlyAdmin,
+		},
+		{
+			Method:  echo.POST,
+			Path:    "/order",
+			Handler: OrderHandler.CreateOrder,
+			Roles:   allRoles,
+		},
+
+		{
+			Method:  echo.GET,
+			Path:    "/order",
+			Handler: OrderHandler.GetAllOrders,
+			Roles:   onlyAdmin,
+		},
+
+		{
+			Method:  echo.GET,
+			Path:    "/order/:id",
+			Handler: OrderHandler.GetOrderByUserID,
+			Roles:   allRoles,
+		},
+		//UserCreateOrder
+		{
+			Method:  echo.POST,
+			Path:    "user/order",
+			Handler: OrderHandler.UserCreateOrder,
+			Roles:   onlyBuyer,
+		},
+		//GetOrderHistory
+		{
+			Method:  echo.GET,
+			Path:    "user/order",
+			Handler: OrderHandler.GetOrderHistory,
+			Roles:   onlyBuyer,
 		},
 	}
 }
