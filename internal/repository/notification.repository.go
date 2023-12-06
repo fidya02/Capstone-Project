@@ -1,8 +1,9 @@
 package repository
 
 import (
-	"Ticketing/entity"
 	"context"
+
+	"github.com/fidya02/Capstone-Project/entity"
 
 	"gorm.io/gorm"
 )
@@ -13,20 +14,21 @@ type NotificationRepository struct {
 
 func NewNotificationRepository(db *gorm.DB) *NotificationRepository {
 	return &NotificationRepository{
-		db: db
+		db: db,
 	}
 }
-//Get all notification
+
+// Get all notification
 func (r *NotificationRepository) GetAllNotifications(ctx context.Context) ([]*entity.Notification, error) {
 	Notifications := make([]*entity.Notification, 0)
 	result := r.db.WithContext(ctx).Find(&Notifications)
 	if result.Error != nil {
 		return nil, result.Error
-}
+	}
 	return Notifications, nil
 }
 
-//Create a notification
+// Create a notification
 func (r *NotificationRepository) CreateNotification(ctx context.Context, Notification *entity.Notification) error {
 	result := r.db.WithContext(ctx).Create(&Notification)
 	if result.Error != nil {
@@ -35,10 +37,10 @@ func (r *NotificationRepository) CreateNotification(ctx context.Context, Notific
 	return nil
 }
 
-//Get Notifications
+// Get Notifications
 func (r *NotificationRepository) UserGetNotification(ctx context.Context) ([]*entity.Notification, error) {
 	Notifications := make([]*entity.Notification, 0)
-	
+
 	//Retrieve Notifications
 	result := r.db.WithContext(ctx).Where("is_read = ?", false).Find(&Notifications)
 	if result.Error != nil {
@@ -55,7 +57,7 @@ func (r *NotificationRepository) UserGetNotification(ctx context.Context) ([]*en
 	}
 	return Notifications, nil
 }
-func (r *NotificationsRepository) MarkNotificationAsRead(ctx context.Context, notificationID int) error {
+func (r *NotificationRepository) MarkNotificationAsRead(ctx context.Context, notificationID int) error {
 	result := r.db.WithContext(ctx).Model(&entity.Notification{}).Where("id = ?", notificationID).Update("is_read", true)
 	if result.Error != nil {
 		return result.Error
