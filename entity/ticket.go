@@ -14,9 +14,9 @@ type Ticket struct {
 	Category    string `json:"category"`
 	Date        string
 	Sold        int64     `json:"sold"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
-	DeletedAt   time.Time `json:"deleted_at"`
+	CreatedAt   time.Time `json:"-"`
+	UpdatedAt   time.Time `json:"-"`
+	DeletedAt   time.Time `json:"-"`
 }
 
 func Newticket(name string, description string, price int64, status bool, image string, location string, quantity int, category string, date string, sold int64) *Ticket {

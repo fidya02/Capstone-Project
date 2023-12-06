@@ -45,6 +45,9 @@ func (r *UserRepository) Update(ctx context.Context, user *entity.User) error {
 	if user.Role != "" {
 		query = query.Update("role", user.Role)
 	}
+	if user.Wallet != 0 {
+		query = query.Update("Wallet_balance", user.Wallet)
+	}
 	if user.Email != "" {
 		query = query.Update("email", user.Email)
 	}

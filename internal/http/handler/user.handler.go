@@ -33,6 +33,8 @@ func (h *UserHandler) CreateUser(ctx echo.Context) error {
 	var input struct {
 		Name     string `json:"name" validate:"required"`
 		Email    string `json:"email" validate:"required"`
+		Number   string `json:"number" validate:"required"`
+		Wallet   int    `json:"wallet_balance"`
 		Password string `json:"password" validate:"required"`
 		Role     string `json:"role" validate:"required,oneof=Administrator Buyer"`
 	}
@@ -41,7 +43,7 @@ func (h *UserHandler) CreateUser(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
 	}
 
-	user := entity.NewUser(input.Name, input.Email, input.Password, input.Role)
+	user := entity.NewUser(input.Name, input.Number, input.Email, input.Password, input.Role, input.Wallet)
 	err := h.userService.Create(ctx.Request().Context(), user)
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
@@ -52,8 +54,10 @@ func (h *UserHandler) CreateUser(ctx echo.Context) error {
 
 func (h *UserHandler) UpdateUser(ctx echo.Context) error {
 	var input struct {
-		ID       int64  `param:"id" validate:"required"`
+		ID       int64  `param:"id"`
 		Name     string `json:"name"`
+		Wallet   int    `json:"wallet_balance"`
+		Number   string `json:"number"`
 		Email    string `json:"email"`
 		Password string `json:"password"`
 		Role     string `json:"role"`
@@ -63,7 +67,7 @@ func (h *UserHandler) UpdateUser(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
 	}
 
-	user := entity.UpdateUser(input.ID, input.Name, input.Email, input.Password, input.Role)
+	user := entity.UpdateUser(input.ID, input.Wallet, input.Number, input.Name, input.Email, input.Password, input.Role)
 
 	err := h.userService.Update(ctx.Request().Context(), user)
 	if err != nil {
