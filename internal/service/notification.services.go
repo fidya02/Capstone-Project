@@ -1,8 +1,9 @@
 package service
 
 import (
-	"Ticketing/entity"
 	"context"
+
+	"github.com/fidya02/Capstone-Project/entity"
 )
 
 type NotificationUsecase interface {

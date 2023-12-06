@@ -106,7 +106,8 @@ func PublicRoutes(
 func PrivateRoutes(
 	userHandler *handler.UserHandler,
 	TicketHandler *handler.TicketHandler,
-	OrderHandler *handler.OrderHandler) []*Route {
+	OrderHandler *handler.OrderHandler,
+	NotificationHandler *handler.NotificationHandler) []*Route {
 	return []*Route{
 		{
 			Method:  echo.GET,
@@ -164,7 +165,7 @@ func PrivateRoutes(
 			Method:  echo.POST,
 			Path:    "/notifications",
 			Handler: NotificationHandler.CreateNotification,
-			Role:    onlyAdmin,
+			Roles:   onlyAdmin,
 		},
 
 		//Get all notifications
@@ -172,7 +173,7 @@ func PrivateRoutes(
 			Method:  echo.GET,
 			Path:    "/notifications",
 			Handler: NotificationHandler.GetAllNotifications,
-			Role:    allRoles,
+			Roles:   allRoles,
 		},
 
 		//UserGetNotifications
@@ -180,8 +181,8 @@ func PrivateRoutes(
 			Method:  echo.GET,
 			Path:    "user/notifications",
 			Handler: NotificationHandler.UserGetNotification,
-			Role:    allRoles,
-
+			Roles:   allRoles,
+		},
 		{
 			Method:  echo.POST,
 			Path:    "/order",
@@ -215,7 +216,6 @@ func PrivateRoutes(
 			Path:    "user/order",
 			Handler: OrderHandler.GetOrderHistory,
 			Roles:   onlyBuyer,
-
 		},
 	}
 }
