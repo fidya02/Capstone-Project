@@ -45,11 +45,6 @@ func PublicRoutes(
 			Handler: TicketHandler.FindAllTickets,
 		},
 		{
-			Method:  echo.GET,
-			Path:    "/tickets/:id",
-			Handler: TicketHandler.GetTicketByID,
-		},
-		{
 			Method:  echo.POST,
 			Path:    "/tickets/category/:category",
 			Handler: TicketHandler.FilterTicketByCategory,
@@ -62,7 +57,7 @@ func PublicRoutes(
 		{
 			Method:  echo.GET,
 			Path:    "/tickets/range/:min/:max",
-			Handler: TicketHandler.FilterTicketByPriceRange,
+			Handler: TicketHandler.FilterTicketByRangeTime,
 		},
 		{
 			Method:  echo.GET,
@@ -98,12 +93,12 @@ func PublicRoutes(
 		{
 			Method:  echo.POST,
 			Path:    "/tickets/cheap",
-			Handler: TicketHandler.FilterTicketByCheap,
+			Handler: TicketHandler.SortTicketByCheap,
 		},
 		{
 			Method:  echo.POST,
 			Path:    "/tickets/expensive",
-			Handler: TicketHandler.FilterTicketByExpensive,
+			Handler: TicketHandler.SortTicketByExpensive,
 		},
 	}
 }
@@ -145,12 +140,6 @@ func PrivateRoutes(
 		},
 
 		//Ticket
-		{
-			Method:  echo.GET,
-			Path:    "/tickets",
-			Handler: TicketHandler.FindAllTickets,
-			Roles:   onlyAdmin,
-		},
 		{
 			Method:  echo.POST,
 			Path:    "/tickets",

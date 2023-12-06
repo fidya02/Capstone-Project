@@ -61,15 +61,6 @@ func (r *TicketRepository) SearchTicket(ctx context.Context, name string) ([]*en
 	return tickets, nil
 }
 
-func (r *TicketRepository) FindTicketByID(ctx context.Context, id int64) (*entity.Ticket, error) {
-	tickets := &entity.Ticket{}
-	err := r.db.WithContext(ctx).Where("id = ?", id).First(&tickets).Error
-	if err != nil {
-		return nil, err
-	}
-	return tickets, nil
-}
-
 func (r *TicketRepository) FilterTicketByCategory(ctx context.Context, category string) ([]*entity.Ticket, error) {
 	tickets := make([]*entity.Ticket, 0)
 	err := r.db.WithContext(ctx).Where("category = ?", category).Find(&tickets).Error
@@ -88,9 +79,9 @@ func (r *TicketRepository) FilterTicketByLocation(ctx context.Context, location 
 	return tickets, nil
 }
 
-func (r *TicketRepository) FilterTicketByRangeTime(ctx context.Context, date string) ([]*entity.Ticket, error) {
+func (r *TicketRepository) FilterTicketByRangeTime(ctx context.Context, start string, end string) ([]*entity.Ticket, error) {
 	tickets := make([]*entity.Ticket, 0)
-	err := r.db.WithContext(ctx).Where("date >= ? AND date <= ?", date).Find(&tickets)
+	err := r.db.WithContext(ctx).Where("Date >= ? AND Date <= ?", start, end).Find(&tickets)
 	if err.Error != nil {
 		return nil, err.Error
 	}

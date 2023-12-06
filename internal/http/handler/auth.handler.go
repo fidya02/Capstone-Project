@@ -60,6 +60,7 @@ func (h *AuthHandler) Login(ctx echo.Context) error {
 func (h *AuthHandler) Register(ctx echo.Context) error {
 	var input struct {
 		Email    string `json:"email" validate:"required,email"`
+		Number   string `json:"number" validate:"required"`
 		Password string `json:"password" validate:"required,min=8"`
 		Roles    string `json:"roles" default:"Buyer"`
 	}
@@ -68,7 +69,7 @@ func (h *AuthHandler) Register(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
 	}
 
-	user := entity.Regist(input.Email, input.Password, input.Roles)
+	user := entity.Regist(input.Email, input.Number, input.Password, input.Roles)
 	err := h.registerService.Register(ctx.Request().Context(), user)
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
