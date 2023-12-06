@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS "public"."users" (
     "role" varchar(255) NOT NULL,
     "password" varchar(255) NOT NULL,
     "wallet_balance" int NOT NULL DEFAULT 0,
-    "created_at" timestamptz (6),
-    "updated_at" timestamptz (6),
+    "created_at" timestamptz (6) NOT NULL,
+    "updated_at" timestamptz (6) NOT NULL,
     "deleted_at" timestamptz (6)
 );
 COMMIT;

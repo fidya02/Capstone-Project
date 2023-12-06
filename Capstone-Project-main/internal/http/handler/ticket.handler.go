@@ -28,21 +28,32 @@ func (h *TicketHandler) FindAllTickets(ctx echo.Context) error {
 	})
 }
 
+func (h *TicketHandler) FindTicketByID(ctx echo.Context) error {
+	id := ctx.Param("id")
+	ticket, err := h.ticketService.FindTicketByID(ctx.Request().Context(), id)
+	if err != nil {
+		return ctx.JSON(http.StatusUnprocessableEntity, err)
+	}
+	return ctx.JSON(http.StatusOK, map[string]interface{}{
+		"ticket": ticket,
+	})
+}
+
 func (h *TicketHandler) CreateTicket(ctx echo.Context) error {
 	var input struct {
-		Name        string    `json:"name" validate:"required"`
-		Description string    `json:"description" validate:"required"`
-		Image       string    `json:"image"`
-		Price       int64     `json:"price"`
-		Date        time.Time `json:"date"`
-		Location    string    `json:"location"`
-		Status      bool      `json:"status"`
-		Quantity    int       `json:"quantity"`
-		Category    string    `json:"category"`
-		Sold        int64     `json:"sold"`
+		Name        string `json:"name" validate:"required"`
+		Description string `json:"description" validate:"required"`
+		Image       string `json:"image"`
+		Price       int64  `json:"price" validate:"required"`
+		Date        string `json:"date" validate:"required"`
+		Location    string `json:"location" validate:"required"`
+		Status      string `json:"status" validate:"required"`
+		Quantity    int    `json:"quantity" validate:"required"`
+		Category    string `json:"category" validate:"required"`
+		Sold        int64  `json:"sold"`
 	}
 	if err := ctx.Bind(&input); err != nil {
-		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
+		return ctx.JSON(http.StatusBadRequest, err)
 	}
 	timestr := input.Date.Format("2006-01-02T15:04:05")
 
@@ -55,9 +66,9 @@ func (h *TicketHandler) CreateTicket(ctx echo.Context) error {
 		Location:    input.Location,
 		Status:      input.Status,
 		Quantity:    input.Quantity,
-		Sold:        input.Sold,
 		Category:    input.Category,
-		CreatedAt:   time.Now(),
+		Sold:        input.Sold,
+		CreateAt:    time.Now(),
 	}
 
 	err := h.ticketService.CreateTicket(ctx.Request().Context(), &ticket)
@@ -72,20 +83,20 @@ func (h *TicketHandler) CreateTicket(ctx echo.Context) error {
 
 func (h *TicketHandler) UpdateTicket(ctx echo.Context) error {
 	var input struct {
-		ID          int64     `param:"id" validate:"required"`
-		Name        string    `json:"name" validate:"required"`
-		Description string    `json:"description" validate:"required"`
-		Image       string    `json:"image"`
-		Price       int64     `json:"price" validate:"required"`
-		Date        time.Time `json:"date" validate:"required"`
-		Location    string    `json:"location" validate:"required"`
-		Status      string    `json:"status" validate:"required"`
-		Quantity    int       `json:"quantity" validate:"required"`
-		Category    string    `json:"category" validate:"required"`
-		Sold        int64     `json:"sold"`
+		ID          int64  `param:"id" validate:"required"`
+		Name        string `json:"name" validate:"required"`
+		Description string `json:"description" validate:"required"`
+		Image       string `json:"image"`
+		Price       int64  `json:"price" validate:"required"`
+		Date        string `json:"date" validate:"required"`
+		Location    string `json:"location" validate:"required"`
+		Status      string `json:"status" validate:"required"`
+		Quantity    int    `json:"quantity" validate:"required"`
+		Category    string `json:"category" validate:"required"`
+		Sold        int64  `json:"sold"`
 	}
 	if err := ctx.Bind(&input); err != nil {
-		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
+		return ctx.JSON(http.StatusBadRequest, err)
 	}
 	timestr := input.Date.Format("2006-01-02T15:04:05")
 
@@ -200,14 +211,13 @@ func (h *TicketHandler) FilterTicketByLocation(ctx echo.Context) error {
 
 func (h *TicketHandler) FilterTicketByRangeTime(ctx echo.Context) error {
 	var input struct {
-		Start string `param:"start" validate:"required"`
-		End   string `param:"end" validate:"required"`
+		Date string `param:"date" validate:"required"`
 	}
 	if err := ctx.Bind(&input); err != nil {
 		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
 	}
 
-	tickets, err := h.ticketService.FilterTicketByRangeTime(ctx.Request().Context(), input.Start, input.End)
+	tickets, err := h.ticketService.FilterTicketByRangeTime(ctx.Request().Context(), input.Date)
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
 	}
@@ -239,34 +249,28 @@ func (h *TicketHandler) SortTicketByNewest(ctx echo.Context) error {
 	sortTicket := ctx.Param("sort")
 
 	if sortTicket == "newest" {
-		return ctx.JSON(http.StatusUnprocessableEntity, map[string]string{
-			"message": "invalid sort",
+		tickets, err := h.ticketService.SortTicketByNewest(ctx.Request().Context())
+		if err != nil {
+			return ctx.JSON(http.StatusUnprocessableEntity, err)
+		}
+		return ctx.JSON(http.StatusOK, map[string]interface{}{
+			"tickets": tickets,
 		})
 	}
-	tickets, err := h.ticketService.SortTicketByNewest(ctx.Request().Context())
-	if err != nil {
-		return ctx.JSON(http.StatusUnprocessableEntity, err)
-	}
-	return ctx.JSON(http.StatusOK, map[string]interface{}{
-		"tickets": tickets,
-	})
 }
 
 func (h *TicketHandler) SortTicketByOldest(ctx echo.Context) error {
 	sortTicket := ctx.Param("sort")
 
 	if sortTicket == "oldest" {
-		return ctx.JSON(http.StatusUnprocessableEntity, map[string]string{
-			"message": "invalid sort",
+		tickets, err := h.ticketService.SortTicketByOldest(ctx.Request().Context())
+		if err != nil {
+			return ctx.JSON(http.StatusUnprocessableEntity, err)
+		}
+		return ctx.JSON(http.StatusOK, map[string]interface{}{
+			"tickets": tickets,
 		})
 	}
-	tickets, err := h.ticketService.SortTicketByOldest(ctx.Request().Context())
-	if err != nil {
-		return ctx.JSON(http.StatusUnprocessableEntity, err)
-	}
-	return ctx.JSON(http.StatusOK, map[string]interface{}{
-		"tickets": tickets,
-	})
 }
 
 func (h *TicketHandler) SortTicketByExpensive(ctx echo.Context) error {

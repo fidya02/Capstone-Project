@@ -45,6 +45,11 @@ func PublicRoutes(
 			Handler: TicketHandler.FindAllTickets,
 		},
 		{
+			Method:  echo.GET,
+			Path:    "/tickets/:id",
+			Handler: TicketHandler.GetTicketByID,
+		},
+		{
 			Method:  echo.POST,
 			Path:    "/tickets/category/:category",
 			Handler: TicketHandler.FilterTicketByCategory,
@@ -57,7 +62,7 @@ func PublicRoutes(
 		{
 			Method:  echo.GET,
 			Path:    "/tickets/range/:min/:max",
-			Handler: TicketHandler.FilterTicketByRangeTime,
+			Handler: TicketHandler.FilterTicketByPriceRange,
 		},
 		{
 			Method:  echo.GET,
@@ -93,20 +98,19 @@ func PublicRoutes(
 		{
 			Method:  echo.POST,
 			Path:    "/tickets/cheap",
-			Handler: TicketHandler.SortTicketByCheap,
+			Handler: TicketHandler.FilterTicketByCheap,
 		},
 		{
 			Method:  echo.POST,
 			Path:    "/tickets/expensive",
-			Handler: TicketHandler.SortTicketByExpensive,
+			Handler: TicketHandler.FilterTicketByExpensive,
 		},
 	}
 }
 
 func PrivateRoutes(
 	userHandler *handler.UserHandler,
-	TicketHandler *handler.TicketHandler,
-	OrderHandler *handler.OrderHandler) []*Route {
+	TicketHandler *handler.TicketHandler) []*Route {
 	return []*Route{
 		{
 			Method:  echo.GET,
@@ -141,6 +145,12 @@ func PrivateRoutes(
 
 		//Ticket
 		{
+			Method:  echo.GET,
+			Path:    "/tickets",
+			Handler: TicketHandler.FindAllTickets,
+			Roles:   onlyAdmin,
+		},
+		{
 			Method:  echo.POST,
 			Path:    "/tickets",
 			Handler: TicketHandler.CreateTicket,
@@ -157,65 +167,6 @@ func PrivateRoutes(
 			Path:    "/tickets/:id",
 			Handler: TicketHandler.DeleteTicket,
 			Roles:   onlyAdmin,
-		},
-
-		//create notification
-		{
-			Method:  echo.POST,
-			Path:    "/notifications",
-			Handler: NotificationHandler.CreateNotification,
-			Role:    onlyAdmin,
-		},
-
-		//Get all notifications
-		{
-			Method:  echo.GET,
-			Path:    "/notifications",
-			Handler: NotificationHandler.GetAllNotifications,
-			Role:    allRoles,
-		},
-
-		//UserGetNotifications
-		{
-			Method:  echo.GET,
-			Path:    "user/notifications",
-			Handler: NotificationHandler.UserGetNotification,
-			Role:    allRoles,
-
-		{
-			Method:  echo.POST,
-			Path:    "/order",
-			Handler: OrderHandler.CreateOrder,
-			Roles:   allRoles,
-		},
-
-		{
-			Method:  echo.GET,
-			Path:    "/order",
-			Handler: OrderHandler.GetAllOrders,
-			Roles:   onlyAdmin,
-		},
-
-		{
-			Method:  echo.GET,
-			Path:    "/order/:id",
-			Handler: OrderHandler.GetOrderByUserID,
-			Roles:   allRoles,
-		},
-		//UserCreateOrder
-		{
-			Method:  echo.POST,
-			Path:    "user/order",
-			Handler: OrderHandler.UserCreateOrder,
-			Roles:   onlyBuyer,
-		},
-		//GetOrderHistory
-		{
-			Method:  echo.GET,
-			Path:    "user/order",
-			Handler: OrderHandler.GetOrderHistory,
-			Roles:   onlyBuyer,
-
 		},
 	}
 }
