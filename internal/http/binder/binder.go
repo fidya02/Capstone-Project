@@ -1,15 +1,12 @@
 package binder
 
 import (
-	internalValidator "GOLANG/internal/http/validator"
-
 	"github.com/creasty/defaults"
+	internalValidator "github.com/fidya02/Capstone-Project/internal/http/validator"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 )
 
-// untuk override echo.Binder , karena untuk mapping apa saja yang perlu di binding
-// folder ini digunakan untuk mengcombine data yang diinputkan dengan data yang diinginkan
 type Binder struct {
 	defaultBinder *echo.DefaultBinder
 	*internalValidator.FormValidator
@@ -18,12 +15,10 @@ type Binder struct {
 func NewBinder(
 	dbr *echo.DefaultBinder,
 	vdr *internalValidator.FormValidator) *Binder {
-	//untuk mereturn struct binder diatas
 	return &Binder{dbr, vdr}
 }
 
 func (b *Binder) Bind(i interface{}, c echo.Context) error {
-	// untuk melakukan binding
 	if err := b.defaultBinder.Bind(i, c); err != nil {
 		return err
 	}
@@ -32,7 +27,6 @@ func (b *Binder) Bind(i interface{}, c echo.Context) error {
 		return err
 	}
 
-	// untuk melakukan validasi
 	if err := b.Validate(i); err != nil {
 		errs := err.(validator.ValidationErrors)
 		return errs

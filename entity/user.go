@@ -5,43 +5,66 @@ import (
 )
 
 type User struct {
-	ID        int64     `json:"id"`
-	Name      string    `json:"name"`
-	Email     string    `json:"email"`
-	Password  string    `json:"-"`
-	CreatedAt time.Time `json:"-"`
-	UpdatedAt time.Time `json:"-"`
-	DeleteAt  time.Time `json:"-"`
+	ID        int64      `json:"id"`
+	Name      string     `json:"name"`
+	Email     string     `json:"email"`
+	Password  string     `json:"-"`
+	Role      string     `json:"role"`
+	Number    string     `json:"number"`
+	Wallet    int        `json:"wallet_balance"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 }
 
-// req untuk create user
-func NewUser(name, email, password string) *User {
+func NewUser(name string, email string, number string, password string, role string, wallet_balance int) *User {
 	return &User{
 		Name:      name,
 		Email:     email,
+		Number:    number,
 		Password:  password,
+		Role:      role,
+		Wallet:    wallet_balance,
 		CreatedAt: time.Now(),
 	}
 }
 
-// req untuk update user
-func UpdateUser(id int64, name, email, password string) *User {
+func UpdateUser(id int64, wallet_balance int, number, name string, email, password, role string) *User {
+	return &User{
+		ID:        id,
+		Name:      name,
+		Number:    number,
+		Email:     email,
+		Password:  password,
+		Role:      role,
+		Wallet:    wallet_balance,
+		UpdatedAt: time.Now(),
+	}
+}
+func Regist(email, number, password, role string) *User {
+	return &User{
+		Email:    email,
+		Number:   number,
+		Password: password,
+		Role:     role,
+	}
+}
+
+func UpdateProfile(id int64, name, number, email, role, password string) *User {
 	return &User{
 		ID:        id,
 		Name:      name,
 		Email:     email,
+		Role:      role,
+		Number:    number,
 		Password:  password,
 		UpdatedAt: time.Now(),
 	}
 }
 
-// req untuk login
-// func Login(email, password string) *User {
+// func DeleteUserSelfByEmail(email string) *User {
 // 	return &User{
-// 		Email:    email,
-// 		Password: password,
+// 		Email:     email,
+// 		DeletedAt: nil,
 // 	}
 // }
-
-//note : ketika type data untuk ID hanya int, maka akan error ketika dijalankan. karena ID tidak bisa di tambahkan otmatis oleh database
-// namun ketika type data untuk ID diubah menjadi int64, maka tidak akan error ketika dijalankan. karena ID bisa di tambahkan otmatis oleh database melalui postman.
