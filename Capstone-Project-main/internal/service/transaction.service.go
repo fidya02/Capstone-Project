@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/zhikariz/weather-app/entity"
+	"github.com/fidya02/Capstone-Project/entity"
 )
 
 type TransactionUseCase interface {
