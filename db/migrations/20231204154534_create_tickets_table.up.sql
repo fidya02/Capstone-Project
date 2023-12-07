@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS "public"."tickets" (
     "category" varchar(255),
     "date" date,
     "sold" int,
-    "created_at" timestamptz (6) NOT NULL,
-    "updated_at" timestamptz (6) NOT NULL,
+    "created_at" timestamptz (6),
+    "updated_at" timestamptz (6),
     "deleted_at" timestamptz (6)
 
 );

@@ -20,7 +20,7 @@ func BuildPublicRoutes(cfg *config.Config, db *gorm.DB) []*router.Route {
 	BlogService := service.NewBlogService(BlogRepository)
 	BlogHandler := handler.NewBlogHandler(BlogService)
 	ticketRepository := repository.NewTicketRepository(db)
-	ticketService := service.NewTicketService(ticketRepository)
+	ticketService := service.NewTicketRepository(ticketRepository)
 	tickethandler := handler.NewTicketHandler(ticketService)
 	authHandler := handler.NewAuthHandler(registerService, loginService, tokenService)
 	return router.PublicRoutes(authHandler, tickethandler, BlogHandler)
@@ -29,16 +29,26 @@ func BuildPublicRoutes(cfg *config.Config, db *gorm.DB) []*router.Route {
 func BuildPrivateRoutes(cfg *config.Config, db *gorm.DB) []*router.Route {
 	userRepository := repository.NewUserRepository(db)
 	userService := service.NewUserService(userRepository)
+	ticketRepository := repository.NewTicketRepository(db)
+	ticketService := service.NewTicketRepository(ticketRepository)
+	tickethandler := handler.NewTicketHandler(ticketService)
 	userHandler := handler.NewUserHandler(cfg, userService)
+
 
 	BlogRepository := repository.NewBlogRepository(db)
 	BlogService := service.NewBlogService(BlogRepository)
 	BlogHandler := handler.NewBlogHandler(BlogService)
 
+	NotificationRepository := repository.NewNotificationRepository(db)
+	NotificationService := service.NewNotificationService(NotificationRepository)
+	NotificationHandler := handler.NewNotificationHandler(NotificationService)
+
+
 	OrderRepository := repository.NewOrderRepository(db)
 	OrderService := service.NewOrderService(OrderRepository)
 	OrderHandler := handler.NewOrderHandler(OrderService)
 
-	return router.PrivateRoutes(userHandler, OrderHandler, BlogHandler)
+
+	return router.PrivateRoutes(userHandler, OrderHandler, BlogHandler tickethandler, OrderHandler, NotificationHandler)
 
 }
