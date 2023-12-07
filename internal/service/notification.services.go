@@ -22,6 +22,11 @@ type NotificationService struct {
 	Repository NotificationRepository
 }
 
+// UserGetNotification implements NotificationUsecase.
+func (*NotificationService) UserGetNotification(ctx context.Context) ([]*entity.Notification, error) {
+	panic("unimplemented")
+}
+
 func NewNotificationService(Repository NotificationRepository) *NotificationService {
 	return &NotificationService{Repository: Repository}
 }
