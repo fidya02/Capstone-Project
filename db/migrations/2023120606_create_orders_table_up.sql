@@ -1,6 +1,6 @@
 BEGIN;
-
-CREATE TABLE "public"."transactions" (
+-- transaksi = dikarenakan entity order maka saya ganti ke table orders
+CREATE TABLE "public"."orders" (
     "id" SERIAL PRIMARY KEY,
     "ticket_id" INT,
     "user_id" INT,
