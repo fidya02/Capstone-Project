@@ -54,11 +54,11 @@ func PublicRoutes(
 			Path:    "/tickets/category",
 			Handler: TicketHandler.FilterTicketByCategory,
 		},
-		{
-			Method:  echo.GET,
-			Path:    "/tickets/range/:min/:max",
-			Handler: TicketHandler.FilterTicketByRangeTime,
-		},
+		// {
+		// 	Method:  echo.GET,
+		// 	Path:    "/tickets/range/:min/:max",
+		// 	Handler: TicketHandler.FilterTicketByRangeTime,
+		// },
 		{
 			Method:  echo.GET,
 			Path:    "/tickets/location/:location",
@@ -125,13 +125,13 @@ func PrivateRoutes(
 			Method:  echo.POST,
 			Path:    "/users",
 			Handler: userHandler.CreateUser,
-			Roles:   onlyBuyer,
+			Roles:   onlyAdmin,
 		},
 		{
 			Method:  echo.PUT,
 			Path:    "/users/:id",
 			Handler: userHandler.UpdateUser,
-			Roles:   onlyBuyer,
+			Roles:   onlyAdmin,
 		},
 		{
 			Method:  echo.DELETE,

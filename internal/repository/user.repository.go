@@ -46,7 +46,7 @@ func (r *UserRepository) Update(ctx context.Context, user *entity.User) error {
 		query = query.Update("role", user.Role)
 	}
 	if user.Wallet != 0 {
-		query = query.Update("Wallet_balance", user.Wallet)
+		query = query.Update("wallet", user.Wallet)
 	}
 	if user.Email != "" {
 		query = query.Update("email", user.Email)
@@ -78,4 +78,86 @@ func (r *UserRepository) FindByEmail(ctx context.Context, email string) (*entity
 		return nil, errors.New("user with that email not found")
 	}
 	return user, nil
+}
+
+// Update User Self
+func (r *UserRepository) UpdateProfile(ctx context.Context, user *entity.User) error {
+	if err := r.db.WithContext(ctx).
+		Model(&entity.User{}).
+		Where("id = ?", user.ID).
+		Updates(&user).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// update user balance by id
+func (r *UserRepository) UpdateUserBalance(ctx context.Context, user *entity.User) error {
+	if err := r.db.WithContext(ctx).
+		Model(&entity.User{}).
+		Where("id = ?", user.ID).
+		Updates(&user).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// GetProfile
+func (r *UserRepository) GetProfile(ctx context.Context, userID int64) (*entity.User, error) {
+	var user entity.User
+	err := r.db.WithContext(ctx).First(&user, userID).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+// UserBalance
+func (r *UserRepository) GetUserBalance(ctx context.Context, userID int64) (*entity.User, error) {
+	var user entity.User
+	err := r.db.WithContext(ctx).First(&user, userID).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+// DeleteAccount
+func (r *UserRepository) DeleteAccount(ctx context.Context, email string) error {
+	if err := r.db.WithContext(ctx).Delete(&entity.User{}, email).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// upgrade wallet
+func (r *UserRepository) UpgradeWallet(ctx context.Context, user *entity.User) error {
+	if err := r.db.WithContext(ctx).
+		Model(&entity.User{}).
+		Where("id = ?", user.ID).
+		Updates(&user).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// logout
+func (r *UserRepository) UserLogout(ctx context.Context, user *entity.User) error {
+	if err := r.db.WithContext(ctx).
+		Model(&entity.User{}).
+		Where("id = ?", user.ID).
+		Updates(&user).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// wallet updates by ID
+func (r *UserRepository) UpdateWallet(ctx context.Context, userID int64, updatedWallet int64) error {
+	user := &entity.User{ID: userID, Wallet: updatedWallet}
+
+	if err := r.db.WithContext(ctx).Model(&entity.User{}).Where("id = ?", userID).Updates(&user).Error; err != nil {
+		return err
+	}
+	return nil
 }

@@ -34,7 +34,7 @@ func (h *UserHandler) CreateUser(ctx echo.Context) error {
 		Name     string `json:"name" validate:"required"`
 		Email    string `json:"email" validate:"required"`
 		Number   string `json:"number" validate:"required"`
-		Wallet   int    `json:"wallet_balance"`
+		Wallet   int64  `json:"wallet"`
 		Password string `json:"password" validate:"required"`
 		Role     string `json:"role" validate:"required,oneof=Administrator Buyer"`
 	}
@@ -56,7 +56,7 @@ func (h *UserHandler) UpdateUser(ctx echo.Context) error {
 	var input struct {
 		ID       int64  `param:"id"`
 		Name     string `json:"name"`
-		Wallet   int    `json:"wallet_balance"`
+		Wallet   int64  `json:"wallet"`
 		Number   string `json:"number"`
 		Email    string `json:"email"`
 		Password string `json:"password"`
