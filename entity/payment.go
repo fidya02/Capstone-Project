@@ -1,6 +1,6 @@
 package entity
 
-// payment disini = transaksi
+// payment disini = transaksi(opsional)
 type Payments struct {
 	ID      int64
 	OrderID string
