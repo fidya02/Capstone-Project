@@ -16,14 +16,12 @@ import (
 type TransactionHandler struct {
 	transactionService service.TransactionUseCase
 	paymentService     service.PaymentUseCase
-	userService        service.UserUsecase
 }
 
-func NewTransactionHandler(transactionService service.TransactionUseCase, paymentService service.PaymentUseCase, userService service.UserUsecase) *TransactionHandler {
+func NewTransactionHandler(transactionService service.TransactionUseCase, paymentService service.PaymentUseCase) *TransactionHandler {
 	return &TransactionHandler{
 		transactionService: transactionService,
 		paymentService:     paymentService,
-		userService:        userService,
 	}
 }
 
@@ -66,53 +64,23 @@ func (h *TransactionHandler) WebHookTransaction(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
 	}
 
-	// Cari transaksi berdasarkan order ID untuk mendapatkan ID pengguna (user ID)
+	// cari transaction by order id kita dapat user id
 	transaction, err := h.transactionService.FindByOrderID(ctx.Request().Context(), input.OrderID)
 
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err.Error())
 	}
-
-	// Tentukan status default
 	status := "unpaid"
 
-	// Jika status transaksi adalah "settlement", ubah status menjadi "paid"
 	if input.TransactionStatus == "settlement" {
 		status = "paid"
-
-		// Update status transaksi di database
-		err = h.transactionService.UpdateStatus(ctx.Request().Context(), transaction.OrderID, status)
-		if err != nil {
-			return ctx.JSON(http.StatusUnprocessableEntity, err.Error())
-		}
-
-		// Tambahkan saldo ke user jika status transaksi adalah "paid"
-		user, err := h.userService.FindByID(ctx.Request().Context(), transaction.UserID)
-		if err != nil {
-			return ctx.JSON(http.StatusUnprocessableEntity, err.Error())
-		}
-
-		// Tambahkan saldo ke user
-		updatedSaldo := user.Saldo + transaction.Amount
-		err = h.userService.UpdateSaldo(ctx.Request().Context(), user.ID, updatedSaldo)
-		if err != nil {
-			return ctx.JSON(http.StatusUnprocessableEntity, err.Error())
-		}
 	}
 
-	return ctx.JSON(http.StatusOK, map[string]string{"message": "success"})
-}
-
-// history transaction
-func (h *TransactionHandler) HistoryTransaction(ctx echo.Context) error {
-	dataUser, _ := ctx.Get("user").(*jwt.Token)
-	claims := dataUser.Claims.(*common.JwtCustomClaims)
-
-	transactions, err := h.transactionService.FindByUserID(ctx.Request().Context(), claims.ID)
+	err = h.transactionService.UpdateStatus(ctx.Request().Context(), transaction.OrderID, status)
 
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err.Error())
 	}
 
-	return ctx.JSON(http.StatusOK, transactions)
+	return ctx.JSON(http.StatusOK, map[string]string{"message": "success"})
 }

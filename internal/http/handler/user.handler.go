@@ -22,7 +22,7 @@ func NewUserHandler(
 }
 
 func (h *UserHandler) GetAllUsers(ctx echo.Context) error {
-	users, err := h.userService.FindAll(ctx.Request().Context())
+	users, err := h.userService.GetAll(ctx.Request().Context())
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
 	}
@@ -44,7 +44,7 @@ func (h *UserHandler) CreateUser(ctx echo.Context) error {
 	}
 
 	user := entity.NewUser(input.Name, input.Number, input.Email, input.Password, input.Role, input.Wallet)
-	err := h.userService.Create(ctx.Request().Context(), user)
+	err := h.userService.CreateUser(ctx.Request().Context(), user)
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
 	}
@@ -69,7 +69,7 @@ func (h *UserHandler) UpdateUser(ctx echo.Context) error {
 
 	user := entity.UpdateUser(input.ID, input.Wallet, input.Number, input.Name, input.Email, input.Password, input.Role)
 
-	err := h.userService.Update(ctx.Request().Context(), user)
+	err := h.userService.UpdateUser(ctx.Request().Context(), user)
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err.Error())
 	}

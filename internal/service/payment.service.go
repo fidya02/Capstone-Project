@@ -28,8 +28,6 @@ func (s *PaymentService) CreateTransaction(ctx context.Context, paymentRequest *
 			GrossAmt: paymentRequest.Amount,
 		},
 		CustomerDetail: &midtrans.CustomerDetails{
-			FName: paymentRequest.FirstName,
-			LName: paymentRequest.LastName,
 			Email: paymentRequest.Email,
 		},
 	}
