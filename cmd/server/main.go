@@ -34,8 +34,8 @@ func main() {
 
 	midtransClient := initMidtrans(cfg)
 
-	publicRoutes := builder.BuildPublicRoutes(cfg, db, *midtransClient)
-	privateRoutes := builder.BuildPrivateRoutes(cfg, db, *midtransClient)
+	publicRoutes := builder.BuildPublicRoutes(cfg, db, midtransClient)
+	privateRoutes := builder.BuildPrivateRoutes(cfg, db, midtransClient)
 
 	echoBinder := &echo.DefaultBinder{}
 	formValidator := validator.NewFormValidator()
@@ -53,24 +53,16 @@ func main() {
 	waitForShutdown(srv)
 }
 
-func initMidtrans(cfg config.MidtransConfig) *snap.Client {
-	var snapEnvironment midtrans.EnvironmentType
+func initMidtrans(cfg *config.Config) snap.Client {
+	snapClient := snap.Client{}
 
-	env := os.Getenv("Sandbox")
-	if env == "development" {
-		snapEnvironment = midtrans.Sandbox
+	if cfg.Env == "development" {
+		snapClient.New(cfg.MidtransConfig.ServerKey, midtrans.Sandbox)
 	} else {
-		snapEnvironment = midtrans.Production
+		snapClient.New(cfg.MidtransConfig.ServerKey, midtrans.Production)
 	}
 
-	serverKey := cfg.MidtransConfig.ServerKey
-	if serverKey == "" {
-		log.Fatal("ServerKey not found in config")
-	}
-
-	// Create a snap.Client instance
-	snapClient := snap.NewClient(serverKey, snapEnvironment)
-	return &snapClient
+	return snapClient
 }
 
 func runServer(srv *server.Server, port string) {

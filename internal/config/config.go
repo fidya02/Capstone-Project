@@ -7,12 +7,18 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// Config is a config
+type MidtransConfig struct {
+	ServerKey string
+	// Other Midtrans configuration fields
+}
+
 type Config struct {
-	Port     string         `env:"PORT" envDefault:"8080"`
-	Postgres PostgresConfig `envPrefix:"POSTGRES_"`
-	JWT      JwtConfig      `envPrefix:"JWT_"`
-	Session  SessionConfig  `envPrefix:"SESSION_"`
+	Port           string         `env:"PORT" envDefault:"8080"`
+	Postgres       PostgresConfig `envPrefix:"POSTGRES_"`
+	JWT            JwtConfig      `envPrefix:"JWT_"`
+	Session        SessionConfig  `envPrefix:"SESSION_"`
+	Env            string
+	MidtransConfig MidtransConfig
 }
 
 // JwtConfig is a config for jwt
