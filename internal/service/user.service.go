@@ -19,9 +19,9 @@ type UserUseCase interface {
 	GetProfile(ctx context.Context, userID int64) (*entity.User, error)
 	GetUserBalance(ctx context.Context, userID int64) (*entity.User, error)
 	DeleteAccount(ctx context.Context, email string) error
-	UpgradeSaldo(ctx context.Context, user *entity.User) error
+	UpgradeWallet(ctx context.Context, user *entity.User) error
 	UserLogout(ctx context.Context, user *entity.User) error
-	UpdateSaldo(ctx context.Context, userID int64, updatedSaldo int64) error
+	UpdateWallet(ctx context.Context, userID int64, updatedWallet int64) error
 	FindByID(ctx context.Context, id int64) (*entity.User, error)
 }
 
@@ -72,8 +72,8 @@ func (*UserService) UpdateProfile(ctx context.Context, user *entity.User) error 
 	panic("unimplemented")
 }
 
-// UpdateSaldo implements UserUseCase.
-func (*UserService) UpdateSaldo(ctx context.Context, userID int64, updatedSaldo int64) error {
+// UpdateWallet implements UserUseCase.
+func (*UserService) UpdateWallet(ctx context.Context, userID int64, updatedWallet int64) error {
 	panic("unimplemented")
 }
 
@@ -87,8 +87,8 @@ func (*UserService) UpdateUserBalance(ctx context.Context, user *entity.User) er
 	panic("unimplemented")
 }
 
-// UpgradeSaldo implements UserUseCase.
-func (*UserService) UpgradeSaldo(ctx context.Context, user *entity.User) error {
+// UpgradeWallet implements UserUseCase.
+func (*UserService) UpgradeWallet(ctx context.Context, user *entity.User) error {
 	panic("unimplemented")
 }
 
