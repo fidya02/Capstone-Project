@@ -14,25 +14,35 @@ func BuildPublicRoutes(cfg *config.Config, db *gorm.DB) []*router.Route {
 	registerRepository := repository.NewRegisterRepository(db)
 	registerService := service.NewRegisterService(registerRepository)
 	userRepository := repository.NewUserRepository(db)
+
+	transactionRepository := repository.NewTransactionRepository(db)
+	paymentService := service.NewPaymentService(midtransClient)
+	transactionService := service.NewTransactionService(transactionRepository)
+	transactionHandler := handler.NewTransactionHandler(transactionService, paymentService)
+
 	loginService := service.NewLoginService(userRepository)
 	tokenService := service.NewTokenService(cfg)
+	authHandler := handler.NewAuthHandler(registerService, loginService, tokenService)
+	
 	BlogRepository := repository.NewBlogRepository(db)
 	BlogService := service.NewBlogService(BlogRepository)
 	BlogHandler := handler.NewBlogHandler(BlogService)
+	
 	ticketRepository := repository.NewTicketRepository(db)
 	ticketService := service.NewTicketRepository(ticketRepository)
 	tickethandler := handler.NewTicketHandler(ticketService)
-	authHandler := handler.NewAuthHandler(registerService, loginService, tokenService)
-	return router.PublicRoutes(authHandler, tickethandler, BlogHandler)
+
+	return router.PublicRoutes(authHandler, tickethandler, BlogHandler, transactionHandler)
 }
 
 func BuildPrivateRoutes(cfg *config.Config, db *gorm.DB) []*router.Route {
 	userRepository := repository.NewUserRepository(db)
-	userService := service.NewUserService(userRepository)
 	ticketRepository := repository.NewTicketRepository(db)
 	ticketService := service.NewTicketRepository(ticketRepository)
 	tickethandler := handler.NewTicketHandler(ticketService)
+	userService := service.NewUserService(userRepository)
 	userHandler := handler.NewUserHandler(cfg, userService)
+	
 
 	BlogRepository := repository.NewBlogRepository(db)
 	BlogService := service.NewBlogService(BlogRepository)
