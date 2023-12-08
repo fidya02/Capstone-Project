@@ -14,6 +14,8 @@ import (
 	"github.com/fidya02/Capstone-Project/internal/http/binder"
 	"github.com/fidya02/Capstone-Project/internal/http/server"
 	"github.com/fidya02/Capstone-Project/internal/http/validator"
+	"github.com/midtrans/midtrans-go"
+	"github.com/midtrans/midtrans-go/snap"
 
 	"github.com/labstack/echo/v4"
 	"gorm.io/driver/postgres"
@@ -30,8 +32,10 @@ func main() {
 	db, err := buildGormDB(cfg.Postgres)
 	checkError(err)
 
-	publicRoutes := builder.BuildPublicRoutes(cfg, db)
-	privateRoutes := builder.BuildPrivateRoutes(cfg, db)
+	midtransClient := initMidtrans(cfg)
+
+	publicRoutes := builder.BuildPublicRoutes(cfg, db, *midtransClient)
+	privateRoutes := builder.BuildPrivateRoutes(cfg, db, *midtransClient)
 
 	echoBinder := &echo.DefaultBinder{}
 	formValidator := validator.NewFormValidator()
@@ -47,6 +51,26 @@ func main() {
 	runServer(srv, cfg.Port)
 
 	waitForShutdown(srv)
+}
+
+func initMidtrans(cfg config.MidtransConfig) *snap.Client {
+	var snapEnvironment midtrans.EnvironmentType
+
+	env := os.Getenv("Sandbox")
+	if env == "development" {
+		snapEnvironment = midtrans.Sandbox
+	} else {
+		snapEnvironment = midtrans.Production
+	}
+
+	serverKey := cfg.MidtransConfig.ServerKey
+	if serverKey == "" {
+		log.Fatal("ServerKey not found in config")
+	}
+
+	// Create a snap.Client instance
+	snapClient := snap.NewClient(serverKey, snapEnvironment)
+	return &snapClient
 }
 
 func runServer(srv *server.Server, port string) {

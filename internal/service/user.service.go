@@ -37,6 +37,66 @@ type UserService struct {
 	repository UserRepository
 }
 
+// CreateUser implements UserUseCase.
+func (*UserService) CreateUser(ctx context.Context, user *entity.User) error {
+	panic("unimplemented")
+}
+
+// DeleteAccount implements UserUseCase.
+func (*UserService) DeleteAccount(ctx context.Context, email string) error {
+	panic("unimplemented")
+}
+
+// GetAll implements UserUseCase.
+func (*UserService) GetAll(ctx context.Context) ([]*entity.User, error) {
+	panic("unimplemented")
+}
+
+// GetProfile implements UserUseCase.
+func (*UserService) GetProfile(ctx context.Context, userID int64) (*entity.User, error) {
+	panic("unimplemented")
+}
+
+// GetUserBalance implements UserUseCase.
+func (*UserService) GetUserBalance(ctx context.Context, userID int64) (*entity.User, error) {
+	panic("unimplemented")
+}
+
+// GetUserByID implements UserUseCase.
+func (*UserService) GetUserByID(ctx context.Context, id int64) (*entity.User, error) {
+	panic("unimplemented")
+}
+
+// UpdateProfile implements UserUseCase.
+func (*UserService) UpdateProfile(ctx context.Context, user *entity.User) error {
+	panic("unimplemented")
+}
+
+// UpdateSaldo implements UserUseCase.
+func (*UserService) UpdateSaldo(ctx context.Context, userID int64, updatedSaldo int64) error {
+	panic("unimplemented")
+}
+
+// UpdateUser implements UserUseCase.
+func (*UserService) UpdateUser(ctx context.Context, user *entity.User) error {
+	panic("unimplemented")
+}
+
+// UpdateUserBalance implements UserUseCase.
+func (*UserService) UpdateUserBalance(ctx context.Context, user *entity.User) error {
+	panic("unimplemented")
+}
+
+// UpgradeSaldo implements UserUseCase.
+func (*UserService) UpgradeSaldo(ctx context.Context, user *entity.User) error {
+	panic("unimplemented")
+}
+
+// UserLogout implements UserUseCase.
+func (*UserService) UserLogout(ctx context.Context, user *entity.User) error {
+	panic("unimplemented")
+}
+
 func NewUserService(repository UserRepository) *UserService {
 	return &UserService{repository}
 }
