@@ -1,0 +1,256 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "ticket",
+    "dateExported": "2023-12-10T18:08:30.683Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "136eb349-62af-4bb3-b9f9-3ab70f3dfa53",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Get All Ticket",
+            "url": "http://localhost:8080/tickets",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-12-10T17:42:20.130Z",
+            "modified": "2023-12-10T17:42:44.849Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "23d90c31-daff-45fb-891a-50d047fc9332",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Create Ticket",
+            "url": "http://localhost:8080/tickets",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-12-10T17:43:41.883Z",
+            "modified": "2023-12-10T17:45:12.208Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"name\": \"Ticket Name\",\r\n  \"description\": \"Ticket Description\",\r\n  \"image\": \"ticket_image_url\",\r\n  \"price\": 100,\r\n  \"date\": \"2023-12-31T18:00:00Z\",\r\n  \"location\": \"Ticket Location\",\r\n  \"status\": true,\r\n  \"quantity\": 10,\r\n  \"category\": \"Ticket Category\",\r\n  \"sold\": 0\r\n}\r\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "02c4b073-86b8-47d3-bff0-5d63a8ac6956",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Update Ticket",
+            "url": "http://localhost:8080/tickets/:id",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-12-10T17:45:52.818Z",
+            "modified": "2023-12-10T17:46:52.713Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"name\": \"Updated Ticket Name\",\r\n  \"description\": \"Updated Ticket Description\",\r\n  \"image\": \"updated_ticket_image_url\",\r\n  \"price\": 150,\r\n  \"date\": \"2023-12-31T19:00:00Z\",\r\n  \"location\": \"Updated Ticket Location\",\r\n  \"status\": false,\r\n  \"quantity\": 15,\r\n  \"category\": \"Updated Ticket Category\",\r\n  \"sold\": 5\r\n}\r\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8f0bdd1f-886a-4db6-9ccc-872635eb1568",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Delete Ticket",
+            "url": "http://localhost:8080/tickets/:id",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2023-12-10T17:47:22.270Z",
+            "modified": "2023-12-10T17:47:47.131Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2ba87006-354d-44c1-9051-ba33d920a2f9",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Search Ticket",
+            "url": "http://localhost:8080/tickets/search/keyword",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-12-10T17:48:21.001Z",
+            "modified": "2023-12-10T17:48:49.267Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "432fdf48-50cc-48d5-b547-82ac0d59da83",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Filter Ticket By Category",
+            "url": "http://localhost:8080tickets/category/category_name",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-12-10T17:49:05.754Z",
+            "modified": "2023-12-10T17:49:40.171Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "57531a52-b077-4297-b9f5-7bfd63ead18b",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Filter Ticket By Location",
+            "url": "http://localhost:8080/tickets/location/location_name",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-12-10T17:50:02.543Z",
+            "modified": "2023-12-10T17:50:20.394Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "67bcb3c0-2a07-46f7-9b79-5f149d18d062",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Filter Ticket By Range of Time",
+            "url": "http://localhost:8080t/tickets/filter/time?start=start_date&end=end_date",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2023-12-10T17:50:35.437Z",
+            "modified": "2023-12-10T17:51:03.230Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "start",
+                    "value": "start_date",
+                    "isPath": false
+                },
+                {
+                    "name": "end",
+                    "value": "end_date",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "0c6fc143-3d7c-44e9-aba8-623b346b2005",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Filter Ticket By Price",
+            "url": "http://localhost:8080/tickets/filter/price?price=desired_price",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2023-12-10T17:51:26.376Z",
+            "modified": "2023-12-10T17:51:51.872Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "price",
+                    "value": "desired_price",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "234afa13-8039-45ad-b90e-16ae07726c64",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Sort Ticket Newest",
+            "url": "http://localhost:8080/tickets/sort/newest",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-12-10T17:59:54.066Z",
+            "modified": "2023-12-10T18:00:48.823Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "36c4db97-8986-4c48-b21e-d56125fc37c4",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Sort Ticket Oldest",
+            "url": "http://localhost:8080t/tickets/sort/oldest",
+            "method": "GET",
+            "sortNum": 180000,
+            "created": "2023-12-10T18:01:57.250Z",
+            "modified": "2023-12-10T18:02:15.968Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b67b3d4d-92c6-4119-b180-26b1eaba524a",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Sort Ticket Expensive",
+            "url": "http://localhost:8080/tickets/sort/expensive",
+            "method": "GET",
+            "sortNum": 190000,
+            "created": "2023-12-10T18:02:50.751Z",
+            "modified": "2023-12-10T18:03:14.514Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4b1fa666-a103-43a8-95f3-131776f88dbb",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Sort Ticket Cheap",
+            "url": "http://localhost:8080/tickets/sort/cheap",
+            "method": "GET",
+            "sortNum": 200000,
+            "created": "2023-12-10T18:03:37.617Z",
+            "modified": "2023-12-10T18:03:53.171Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d0b75f16-1793-4480-b6e2-b74b752ba98e",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Sort Ticket Sold",
+            "url": "http://localhost:8080/tickets/sort/sold",
+            "method": "GET",
+            "sortNum": 220000,
+            "created": "2023-12-10T18:06:19.240Z",
+            "modified": "2023-12-10T18:06:44.198Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "05a18951-9087-4e88-87cb-012b3e0678d2",
+            "colId": "7f320277-1af9-46c0-9da9-16505de321ff",
+            "containerId": "",
+            "name": "Sort Ticket Avalilable",
+            "url": "http://localhost:8080/tickets/sort/available",
+            "method": "GET",
+            "sortNum": 230000,
+            "created": "2023-12-10T18:07:46.029Z",
+            "modified": "2023-12-10T18:08:07.122Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
