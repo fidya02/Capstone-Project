@@ -1,0 +1,71 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "notification",
+    "dateExported": "2023-12-10T08:20:13.714Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "928f0044-e6d9-4dc1-88dd-1bdb144db4bf",
+            "colId": "dfd3eaf3-c363-4a8b-9282-d30e2e7c9db1",
+            "containerId": "",
+            "name": "Get All Notifications",
+            "url": "http://localhost:8080/notifications",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-12-10T08:04:52.819Z",
+            "modified": "2023-12-10T08:13:40.439Z",
+            "headers": [
+                {
+                    "name": "GET http",
+                    "value": "//localhost:8080/notifications"
+                },
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6a511ec8-43b6-4e97-96f8-b271117c5a6d",
+            "colId": "dfd3eaf3-c363-4a8b-9282-d30e2e7c9db1",
+            "containerId": "",
+            "name": "Create Notification",
+            "url": "http://localhost:8080/notifications/create",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-12-10T08:14:39.611Z",
+            "modified": "2023-12-10T08:18:53.429Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"type\": \"\",\r\n    \"message\": \"\",\r\n    \"is_read\": false,\r\n    \"created_at\": \"2023-12-31T12:00:00Z\"\r\n}\r\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e1332346-5dbf-4548-bc4e-105fdfacb513",
+            "colId": "dfd3eaf3-c363-4a8b-9282-d30e2e7c9db1",
+            "containerId": "",
+            "name": "Get User Notifications",
+            "url": "http://localhost:8080/user/notifications",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-12-10T08:19:38.449Z",
+            "modified": "2023-12-10T08:19:48.145Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
