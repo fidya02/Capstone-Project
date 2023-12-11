@@ -25,7 +25,8 @@ type Route struct {
 
 func PublicRoutes(
 	authHandler *handler.AuthHandler,
-	TicketHandler *handler.TicketHandler) []*Route {
+	TicketHandler *handler.TicketHandler,
+	BlogHandler *handler.BlogHandler) []*Route {
 	return []*Route{
 		{
 			Method:  echo.POST,
@@ -53,6 +54,21 @@ func PublicRoutes(
 			Method:  echo.POST,
 			Path:    "/tickets/category",
 			Handler: TicketHandler.FilterTicketByCategory,
+		},
+		{
+			Method:  echo.GET,
+			Path:    "/blog",
+			Handler: BlogHandler.GetAllBlogs,
+		},
+		{
+			Method:  echo.GET,
+			Path:    "/blog/:id",
+			Handler: BlogHandler.GetBlog,
+		},
+		{
+			Method:  echo.GET,
+			Path:    "/blog/search/:search",
+			Handler: BlogHandler.SearchBlog,
 		},
 		// {
 		// 	Method:  echo.GET,
@@ -106,6 +122,7 @@ func PublicRoutes(
 func PrivateRoutes(
 	userHandler *handler.UserHandler,
 	TicketHandler *handler.TicketHandler,
+	BlogHandler *handler.BlogHandler,
 	OrderHandler *handler.OrderHandler,
 	NotificationHandler *handler.NotificationHandler) []*Route {
 	return []*Route{
@@ -166,6 +183,27 @@ func PrivateRoutes(
 			Roles:   onlyAdmin,
 		},
 
+		//create Blog
+		{
+			Method:  echo.POST,
+			Path:    "/blog",
+			Handler: BlogHandler.CreateBlog,
+			Roles:   onlyAdmin,
+		},
+
+		{
+			Method:  echo.PUT,
+			Path:    "/blog/:id",
+			Handler: BlogHandler.UpdateBlog,
+			Roles:   onlyAdmin,
+		},
+
+		{
+			Method:  echo.DELETE,
+			Path:    "/blog/:id",
+			Handler: BlogHandler.DeleteBlog,
+			Roles:   onlyAdmin,
+		},
 		//create notification
 		{
 			Method:  echo.POST,
