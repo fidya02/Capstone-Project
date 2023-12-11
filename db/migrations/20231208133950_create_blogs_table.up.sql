@@ -1,11 +1,9 @@
-CREATE TABLE blogs (
-    Id SERIAL PRIMARY KEY,
-    Image TEXT,
-	Title VARCHAR(255) NOT NULL,
-	Description TEXT,
-	created_at TIMESTAMP,
-	updated_at TIMESTAMP,
-    deleted_at TIMESTAMP,
+CREATE TABLE IF NOT EXISTS blogs (
+    id SERIAL PRIMARY KEY,
+    image TEXT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMPTZ
 );
-
-COMMIT;
