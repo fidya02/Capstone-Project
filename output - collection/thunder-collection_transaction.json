@@ -1,0 +1,61 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "transaction",
+    "dateExported": "2023-12-11T05:50:50.246Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "3eb6c37b-03c3-490a-9613-01093a2a12c8",
+            "colId": "add26ea8-3f45-4bb0-8d09-ed5fc96bc9a1",
+            "containerId": "",
+            "name": "Create Transaction",
+            "url": "http://localhost:port/transactions/order",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-11T05:48:24.770Z",
+            "modified": "2023-12-11T05:49:30.822Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"order_id\": \"123456789\",\r\n    \"amount\": 50000\r\n}\r\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d8570df8-923a-4d13-9063-eeb3ac239e21",
+            "colId": "add26ea8-3f45-4bb0-8d09-ed5fc96bc9a1",
+            "containerId": "",
+            "name": "Webhook Transaction",
+            "url": "http://localhost:port/transactions/webhook",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-12-11T05:50:00.111Z",
+            "modified": "2023-12-11T05:50:43.554Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"order_id\": \"123456789\",\r\n    \"transaction_status\": \"settlement\"\r\n}\r\n",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
