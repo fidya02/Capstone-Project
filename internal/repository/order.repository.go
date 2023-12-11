@@ -11,6 +11,16 @@ type OrderRepository struct {
 	db *gorm.DB
 }
 
+// GetTicket implements service.OrderRepository.
+func (*OrderRepository) GetTicket(ctx context.Context, ticketID int64) (*entity.Ticket, error) {
+	panic("unimplemented")
+}
+
+// UpdateTicket implements service.OrderRepository.
+func (*OrderRepository) UpdateTicket(ctx context.Context, ticket *entity.Ticket) error {
+	panic("unimplemented")
+}
+
 func NewOrderRepository(db *gorm.DB) *OrderRepository {
 	return &OrderRepository{
 		db: db,

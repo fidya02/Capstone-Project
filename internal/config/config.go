@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"os"
+
 	"github.com/joho/godotenv"
 )
 

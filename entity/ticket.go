@@ -12,14 +12,14 @@ type Ticket struct {
 	Location    string     `json:"location"`
 	Quantity    int        `json:"quantity"`
 	Category    string     `json:"category"`
-	Date        time.Time  `json:"date"` // Menggunakan time.Time untuk kolom date
+	Date        string     `json:"date"` // Menggunakan string custom
 	Sold        int64      `json:"sold"`
 	CreatedAt   time.Time  `json:"-"`
 	UpdatedAt   time.Time  `json:"-"`
 	DeletedAt   *time.Time `json:"-"`
 }
 
-func NewTicket(name string, description string, price int64, status bool, image string, location string, quantity int, category string, date time.Time, sold int64) *Ticket {
+func NewTicket(name string, description string, price int64, status bool, image string, location string, quantity int, category string, date string, sold int64) *Ticket {
 	return &Ticket{
 		Name:        name,
 		Description: description,
@@ -34,7 +34,7 @@ func NewTicket(name string, description string, price int64, status bool, image 
 	}
 }
 
-func UpdateTicket(id int, name string, description string, price int64, status bool, image string, location string, quantity int, category string, date time.Time, sold int64) *Ticket {
+func UpdateTicket(id int, name string, description string, price int64, status bool, image string, location string, quantity int, category string, date string, sold int64) *Ticket {
 	return &Ticket{
 		ID:          id,
 		Name:        name,

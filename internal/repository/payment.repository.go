@@ -19,7 +19,7 @@ func NewPaymentRepository(db *gorm.DB) *PaymentRepository {
 	return &PaymentRepository{db: db}
 }
 
-func (r *PaymentRepository) Create(ctx context.Context, payment *entity.Payment) error {
+func (r *PaymentRepository) Create(ctx context.Context, payment *entity.Transaction) error {
 	if payment == nil {
 		return errors.New("payment is nil")
 	}
@@ -36,8 +36,8 @@ func (r *PaymentRepository) Create(ctx context.Context, payment *entity.Payment)
 	return nil
 }
 
-func (r *PaymentRepository) FindByOrderID(ctx context.Context, orderID int64) (*entity.Payment, error) {
-	payment := &entity.Payment{}
+func (r *PaymentRepository) FindByOrderID(ctx context.Context, orderID int64) (*entity.Transaction, error) {
+	payment := &entity.Transaction{}
 	if err := r.db.WithContext(ctx).Where("order_id = ?", orderID).First(payment).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, errors.New("payment not found")
@@ -47,8 +47,8 @@ func (r *PaymentRepository) FindByOrderID(ctx context.Context, orderID int64) (*
 	return payment, nil
 }
 
-func (r *PaymentRepository) FindByUserID(ctx context.Context, userID int64) ([]*entity.Payment, error) {
-	var payments []*entity.Payment
+func (r *PaymentRepository) FindByUserID(ctx context.Context, userID int64) ([]*entity.Transaction, error) {
+	var payments []*entity.Transaction
 	if err := r.db.WithContext(ctx).Where("user_id = ?", userID).Preload(clause.Associations).Find(&payments).Error; err != nil {
 		return nil, err
 	}
@@ -56,14 +56,14 @@ func (r *PaymentRepository) FindByUserID(ctx context.Context, userID int64) ([]*
 }
 
 func (r *PaymentRepository) UpdateStatus(ctx context.Context, orderID int64, status string) error {
-	if err := r.db.WithContext(ctx).Model(&entity.Payment{}).Where("order_id = ?", orderID).Update("status", status).Error; err != nil {
+	if err := r.db.WithContext(ctx).Model(&entity.Transaction{}).Where("order_id = ?", orderID).Update("status", status).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
 func (r *PaymentRepository) SoftDelete(ctx context.Context, orderID int64) error {
-	payment := &entity.Payment{}
+	payment := &entity.Transaction{}
 	if err := r.db.WithContext(ctx).Where("order_id = ?", orderID).First(payment).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return errors.New("payment not found")
