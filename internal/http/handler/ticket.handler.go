@@ -36,8 +36,8 @@ func (h *TicketHandler) CreateTicket(ctx echo.Context) error {
 		Price       int64     `json:"price"`
 		Date        time.Time `json:"date"`
 		Location    string    `json:"location"`
-		Status      bool      `json:"status"`
-		Quantity    int       `json:"quantity"`
+		Status      string    `json:"status"`
+		Quantity    int64     `json:"quantity"`
 		Category    string    `json:"category"`
 		Sold        int64     `json:"sold"`
 	}
@@ -65,9 +65,7 @@ func (h *TicketHandler) CreateTicket(ctx echo.Context) error {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
 	}
 
-	return ctx.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success create ticket",
-	})
+	return ctx.JSON(http.StatusCreated, "Ticket created successfully")
 }
 
 func (h *TicketHandler) UpdateTicket(ctx echo.Context) error {
@@ -80,7 +78,7 @@ func (h *TicketHandler) UpdateTicket(ctx echo.Context) error {
 		Date        time.Time `json:"date" validate:"required"`
 		Location    string    `json:"location" validate:"required"`
 		Status      string    `json:"status" validate:"required"`
-		Quantity    int       `json:"quantity" validate:"required"`
+		Quantity    int64     `json:"quantity" validate:"required"`
 		Category    string    `json:"category" validate:"required"`
 		Sold        int64     `json:"sold"`
 	}
@@ -90,7 +88,7 @@ func (h *TicketHandler) UpdateTicket(ctx echo.Context) error {
 	timestr := input.Date.Format("2006-01-02T15:04:05")
 
 	ticket := entity.Ticket{
-		ID:          int(input.ID),
+		ID:          input.ID,
 		Name:        input.Name,
 		Description: input.Description,
 		Image:       input.Image,

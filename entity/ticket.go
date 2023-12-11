@@ -3,14 +3,14 @@ package entity
 import "time"
 
 type Ticket struct {
-	ID          int        `json:"id"`
+	ID          int64      `json:"id"`
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
 	Price       int64      `json:"price"`
-	Status      bool       `json:"status"`
+	Status      string     `json:"status"`
 	Image       string     `json:"image"`
 	Location    string     `json:"location"`
-	Quantity    int        `json:"quantity"`
+	Quantity    int64      `json:"quantity"`
 	Category    string     `json:"category"`
 	Date        string     `json:"date"` // Menggunakan string custom
 	Sold        int64      `json:"sold"`
@@ -19,7 +19,7 @@ type Ticket struct {
 	DeletedAt   *time.Time `json:"-"`
 }
 
-func NewTicket(name string, description string, price int64, status bool, image string, location string, quantity int, category string, date string, sold int64) *Ticket {
+func NewTicket(name string, description string, price int64, status string, image string, location string, quantity int64, category string, date string, sold int64) *Ticket {
 	return &Ticket{
 		Name:        name,
 		Description: description,
@@ -34,7 +34,7 @@ func NewTicket(name string, description string, price int64, status bool, image 
 	}
 }
 
-func UpdateTicket(id int, name string, description string, price int64, status bool, image string, location string, quantity int, category string, date string, sold int64) *Ticket {
+func UpdateTicket(id int64, name string, description string, price int64, status string, image string, location string, quantity int64, category string, date string, sold int64) *Ticket {
 	return &Ticket{
 		ID:          id,
 		Name:        name,

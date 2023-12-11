@@ -29,9 +29,9 @@ func (r *TicketRepository) FindAllTickets(ctx context.Context) ([]*entity.Ticket
 }
 
 func (r *TicketRepository) CreateTicket(ctx context.Context, ticket *entity.Ticket) error {
-	err := r.db.WithContext(ctx).Create(&ticket).Error
+	err := r.db.WithContext(ctx).Create(&ticket)
 	if err != nil {
-		return err
+		return err.Error
 	}
 	return nil
 }
