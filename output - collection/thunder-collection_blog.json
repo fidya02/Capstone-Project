@@ -1,0 +1,113 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "blog",
+    "dateExported": "2023-12-11T02:36:28.254Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "7b5aa064-12d5-4a80-a55f-9ad668196865",
+            "colId": "98fad5cc-a990-4b49-92c4-65f4cefe0adc",
+            "containerId": "",
+            "name": "Get All Blogs",
+            "url": "http://localhost:8080/blogs",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-12-11T02:27:06.102Z",
+            "modified": "2023-12-11T02:27:38.538Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6530f343-b6c8-439b-8d49-606c244b2f63",
+            "colId": "98fad5cc-a990-4b49-92c4-65f4cefe0adc",
+            "containerId": "",
+            "name": "Create Blog",
+            "url": "http://localhost:8080/blogs",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-12-11T02:30:06.588Z",
+            "modified": "2023-12-11T02:31:00.830Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"title\": \"Judul Blog Baru\",\r\n  \"description\": \"Deskripsi Blog Baru\",\r\n  \"date\": \"2023-12-11T12:00:00Z\",\r\n  \"image\": \"link_gambar\"\r\n}\r\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c1932b40-9efd-4de2-8cb9-9ac57664b1c3",
+            "colId": "98fad5cc-a990-4b49-92c4-65f4cefe0adc",
+            "containerId": "",
+            "name": "Get Blog by ID",
+            "url": "http://localhost:8080/blogs/:id",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-12-11T02:31:32.405Z",
+            "modified": "2023-12-11T02:31:56.760Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "274c8090-f5ee-4a51-b35e-351429f02e78",
+            "colId": "98fad5cc-a990-4b49-92c4-65f4cefe0adc",
+            "containerId": "",
+            "name": "Update Blog by ID",
+            "url": "http://localhost:8080/blogs/:id",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-12-11T02:32:25.563Z",
+            "modified": "2023-12-11T02:33:52.902Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"title\": \"Judul Blog Diperbarui\",\r\n  \"description\": \"Deskripsi Blog Diperbarui\",\r\n  \"date\": \"2023-12-11T12:00:00Z\",\r\n  \"image\": \"link_gambar_baru\"\r\n}\r\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a90f0426-e7e5-44be-9b36-a0e43766182e",
+            "colId": "98fad5cc-a990-4b49-92c4-65f4cefe0adc",
+            "containerId": "",
+            "name": "Delete Blog",
+            "url": "http://localhost:8080/blogs/:id",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-12-11T02:34:24.937Z",
+            "modified": "2023-12-11T02:34:51.948Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8bb5821e-f63d-4e3a-a4eb-348477cb7f4d",
+            "colId": "98fad5cc-a990-4b49-92c4-65f4cefe0adc",
+            "containerId": "",
+            "name": "Search Blog by Title",
+            "url": "http://localhost:8080/blogs/search/:search",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-12-11T02:35:57.603Z",
+            "modified": "2023-12-11T02:36:19.814Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

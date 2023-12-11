@@ -18,7 +18,7 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 	}
 }
 
-func (r *UserRepository) FindAll(ctx context.Context) ([]*entity.User, error) {
+func (r *UserRepository) GetAll(ctx context.Context) ([]*entity.User, error) {
 	users := make([]*entity.User, 0)
 	err := r.db.WithContext(ctx).Find(&users).Error
 	if err != nil {
@@ -27,14 +27,14 @@ func (r *UserRepository) FindAll(ctx context.Context) ([]*entity.User, error) {
 	return users, nil
 }
 
-func (r *UserRepository) Create(ctx context.Context, user *entity.User) error {
+func (r *UserRepository) CreateUser(ctx context.Context, user *entity.User) error {
 	if err := r.db.WithContext(ctx).Create(&user).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *UserRepository) Update(ctx context.Context, user *entity.User) error {
+func (r *UserRepository) UpdateUser(ctx context.Context, user *entity.User) error {
 	query := r.db.WithContext(ctx).Model(&entity.User{}).Where("id = ?", user.ID)
 	if user.Name != "" {
 		query = query.Update("name", user.Name)
@@ -160,4 +160,12 @@ func (r *UserRepository) UpdateWallet(ctx context.Context, userID int64, updated
 		return err
 	}
 	return nil
+}
+
+func (r *UserRepository) GetUserByID(ctx context.Context, id int64) (*entity.User, error) {
+	user := &entity.User{}
+	if err := r.db.WithContext(ctx).First(user, id).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
 }

@@ -1,19 +1,15 @@
-BEGIN;
--- transaksi = dikarenakan entity order maka saya ganti ke table orders
-CREATE TABLE "public"."orders" (
-    "id" SERIAL PRIMARY KEY,
-    "ticket_id" INT,
-    "user_id" INT,
-    "qty" INT,
-    "total" INTEGER,
-    "Status" VARCHAR(255),
-    "updated_at" TIMESTAMP,
-    "updated_at" TIMESTAMP,
-    "deleted_at" TIMESTAMP,
-    "updated_by" VARCHAR(255),
-    "deleted_by" VARCHAR(255)
+CREATE TABLE IF NOT EXISTS orders (
+    id SERIAL PRIMARY KEY,
+    ticket_id INT,
+    user_id INT,
+    qty INT,
+    total INTEGER,
+    status VARCHAR(255),
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMPTZ,
+    updated_by VARCHAR(255),
+    deleted_by VARCHAR(255),
     FOREIGN KEY (ticket_id) REFERENCES tickets(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-COMMIT;

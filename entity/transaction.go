@@ -1,18 +1,28 @@
 package entity
 
-type Transaction struct {
-	ID      int64
-	OrderID string
-	UserID  int64
-	Amount  int64
-	Status  string
+import "time"
+
+type Payment struct {
+	ID        int64      `json:"id"`
+	UserID    int64      `json:"user_id"`
+	OrderID   int64      `json:"order_id"`
+	Amount    float64    `json:"amount"`
+	Method    string     `json:"method"`
+	Status    string     `json:"status"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 }
 
-func NewTransaction(orderID string, userID int64, amount int64, status string) *Transaction {
-	return &Transaction{
-		OrderID: orderID,
-		UserID:  userID,
-		Amount:  amount,
-		Status:  status,
+func NewPayment(userID, orderID int64, amount float64, method, status string) *Payment {
+	return &Payment{
+		UserID:    userID,
+		OrderID:   orderID,
+		Amount:    amount,
+		Method:    method,
+		Status:    status,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+		DeletedAt: nil,
 	}
 }

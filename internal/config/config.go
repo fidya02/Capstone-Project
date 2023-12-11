@@ -2,12 +2,12 @@ package config
 
 import (
 	"errors"
-
-	"github.com/caarlos0/env/v6"
+	"os"
 	"github.com/joho/godotenv"
 )
 
 type MidtransConfig struct {
+	ClientKey string
 	ServerKey string
 	// Other Midtrans configuration fields
 }
@@ -45,6 +45,10 @@ func NewConfig(envPath string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+	// Set Midtrans configuration
+	cfg.MidtransConfig.ClientKey = os.Getenv("MIDTRANS_CLIENT_KEY")
+	cfg.MidtransConfig.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
+
 	return cfg, nil
 }
 
@@ -55,9 +59,28 @@ func parseConfig(envPath string) (*Config, error) {
 	}
 
 	cfg := &Config{}
-	err = env.Parse(cfg)
+	err = parseEnv(cfg)
 	if err != nil {
 		return nil, errors.New("failed to parse config")
 	}
 	return cfg, nil
+}
+
+func parseEnv(cfg *Config) error {
+	// You need to implement logic to parse environment variables
+	// and set values to the appropriate fields in the Config struct.
+	// Here is an example of how you might do it:
+
+	cfg.Port = os.Getenv("PORT")
+	cfg.JWT.SecretKey = os.Getenv("JWT_SECRET_KEY")
+	cfg.Session.SecretKey = os.Getenv("SESSION_SECRET_KEY")
+
+	// Similarly, parse and set PostgresConfig
+	cfg.Postgres.Host = os.Getenv("POSTGRES_HOST")
+	cfg.Postgres.Port = os.Getenv("POSTGRES_PORT")
+	cfg.Postgres.User = os.Getenv("POSTGRES_USER")
+	cfg.Postgres.Password = os.Getenv("POSTGRES_PASSWORD")
+	cfg.Postgres.Database = os.Getenv("POSTGRES_DATABASE")
+
+	return nil
 }
