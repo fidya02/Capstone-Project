@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "order",
-    "dateExported": "2023-12-09T04:02:57.945Z",
+    "dateExported": "2023-12-11T02:46:42.180Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -9,12 +9,12 @@
             "_id": "ae0edaa4-7665-4393-bba6-289b9260c2b4",
             "colId": "1b22028b-4e37-4cc3-8d7a-fe4a43ab0fda",
             "containerId": "",
-            "name": "create order",
+            "name": "Create Order",
             "url": "http://localhost:8080/orders",
             "method": "POST",
             "sortNum": 20000,
             "created": "2023-12-08T20:32:06.006Z",
-            "modified": "2023-12-09T04:02:00.675Z",
+            "modified": "2023-12-11T02:42:17.069Z",
             "headers": [
                 {
                     "name": "POST http",
@@ -62,7 +62,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\r\n    \"ticket_id\": 123,\r\n    \"quantity\": 2,\r\n    \"user_id\": 456,\r\n    \"status\": \"pending\"\r\n}\r\n",
+                "raw": "{\r\n    \"ticket_id\": 1,\r\n    \"quantity\": 2,\r\n    \"user_id\": 1,\r\n    \"status\": \"pending\"\r\n}\r\n",
                 "form": []
             },
             "tests": []
@@ -130,11 +130,11 @@
             "colId": "1b22028b-4e37-4cc3-8d7a-fe4a43ab0fda",
             "containerId": "",
             "name": "User Create Order:",
-            "url": "http://localhost:8080/orders/user/create",
+            "url": "http://localhost:8080/orders/user",
             "method": "POST",
             "sortNum": 80000,
             "created": "2023-12-08T20:44:07.344Z",
-            "modified": "2023-12-09T04:01:19.693Z",
+            "modified": "2023-12-11T02:45:25.498Z",
             "headers": [
                 {
                     "name": "POST http",
@@ -178,8 +178,12 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\r\n    \"ticket_id\": 123,\r\n    \"quantity\": 2,\r\n    \"status\": \"success\"\r\n}\r\n",
+                "raw": "{\r\n    \"ticket_id\": 1,\r\n    \"quantity\": 2,\r\n    \"status\": \"success\"\r\n}\r\n",
                 "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
             },
             "tests": []
         },
@@ -188,11 +192,11 @@
             "colId": "1b22028b-4e37-4cc3-8d7a-fe4a43ab0fda",
             "containerId": "",
             "name": "Get Order History:",
-            "url": "http://localhost:8080/orders/user/history",
+            "url": "http://localhost:8080/orders/history",
             "method": "GET",
             "sortNum": 90000,
             "created": "2023-12-08T20:45:22.646Z",
-            "modified": "2023-12-08T20:46:43.460Z",
+            "modified": "2023-12-11T02:46:37.336Z",
             "headers": [
                 {
                     "name": "GET http",
@@ -210,6 +214,10 @@
                 }
             ],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
             "tests": []
         }
     ]
