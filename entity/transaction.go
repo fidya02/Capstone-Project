@@ -2,11 +2,11 @@ package entity
 
 import "time"
 
-type Payment struct {
+type Transaction struct {
 	ID        int64      `json:"id"`
 	UserID    int64      `json:"user_id"`
-	OrderID   int64      `json:"order_id"`
-	Amount    float64    `json:"amount"`
+	OrderID   string     `json:"order_id"`
+	Amount    int64      `json:"amount"`
 	Method    string     `json:"method"`
 	Status    string     `json:"status"`
 	CreatedAt time.Time  `json:"created_at"`
@@ -14,13 +14,13 @@ type Payment struct {
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 }
 
-func NewPayment(userID, orderID int64, amount float64, method, status string) *Payment {
-	return &Payment{
-		UserID:    userID,
-		OrderID:   orderID,
-		Amount:    amount,
-		Method:    method,
-		Status:    status,
+func NewTransaction(orderID string, userID int64, amount int64, status string) *Transaction {
+	return &Transaction{
+		UserID:  userID,
+		OrderID: orderID,
+		Amount:  amount,
+		Status:  status,
+		// Method:    method,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 		DeletedAt: nil,
