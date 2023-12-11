@@ -30,6 +30,18 @@ type UserRepository interface {
 	Create(ctx context.Context, user *entity.User) error
 	Update(ctx context.Context, user *entity.User) error
 	Delete(ctx context.Context, id int64) error
+	GetAll(ctx context.Context) ([]*entity.User, error)
+	CreateUser(ctx context.Context, user *entity.User) error
+	UpdateUser(ctx context.Context, user *entity.User) error
+	GetUserByID(ctx context.Context, id int64) (*entity.User, error)
+	UpdateProfile(ctx context.Context, user *entity.User) error
+	UpdateUserBalance(ctx context.Context, user *entity.User) error
+	GetProfile(ctx context.Context, userID int64) (*entity.User, error)
+	GetUserBalance(ctx context.Context, userID int64) (*entity.User, error)
+	DeleteAccount(ctx context.Context, email string) error
+	UpgradeSaldo(ctx context.Context, user *entity.User) error
+	UserLogout(ctx context.Context, user *entity.User) error
+	UpdateSaldo(ctx context.Context, userID int64, updatedSaldo int64) error
 	FindByID(ctx context.Context, id int64) (*entity.User, error)
 }
 

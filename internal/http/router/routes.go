@@ -113,6 +113,12 @@ func PrivateRoutes(
 			Method:  echo.GET,
 			Path:    "/users",
 			Handler: userHandler.GetAllUsers,
+			Roles:   onlyAdmin,
+		},
+		{
+			Method:  echo.POST,
+			Path:    "/users",
+			Handler: userHandler.CreateUser,
 			Roles:   allRoles,
 		},
 		{
@@ -122,16 +128,10 @@ func PrivateRoutes(
 			Roles:   allRoles,
 		},
 		{
-			Method:  echo.POST,
-			Path:    "/users",
-			Handler: userHandler.CreateUser,
-			Roles:   onlyAdmin,
-		},
-		{
 			Method:  echo.PUT,
 			Path:    "/users/:id",
 			Handler: userHandler.UpdateUser,
-			Roles:   onlyAdmin,
+			Roles:   allRoles,
 		},
 		{
 			Method:  echo.DELETE,

@@ -62,14 +62,14 @@ func (h *AuthHandler) Register(ctx echo.Context) error {
 		Email    string `json:"email" validate:"required,email"`
 		Number   string `json:"number" validate:"required"`
 		Password string `json:"password" validate:"required,min=8"`
-		Roles    string `json:"roles" default:"Buyer"`
+		Role     string `json:"role" default:"Buyer"`
 	}
 
 	if err := ctx.Bind(&input); err != nil {
 		return ctx.JSON(http.StatusBadRequest, validator.ValidatorErrors(err))
 	}
 
-	user := entity.Regist(input.Email, input.Number, input.Password, input.Roles)
+	user := entity.Regist(input.Email, input.Number, input.Password, input.Role)
 	err := h.registerService.Register(ctx.Request().Context(), user)
 	if err != nil {
 		return ctx.JSON(http.StatusUnprocessableEntity, err)
