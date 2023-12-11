@@ -1,3 +1,5 @@
+BEGIN;
+
 CREATE TABLE IF NOT EXISTS blogs (
     id SERIAL PRIMARY KEY,
     image TEXT,
@@ -7,3 +9,5 @@ CREATE TABLE IF NOT EXISTS blogs (
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMPTZ
 );
+
+COMMIT;
