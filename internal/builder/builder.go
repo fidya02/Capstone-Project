@@ -24,7 +24,11 @@ func BuildPublicRoutes(cfg *config.Config, db *gorm.DB, midtransClient snap.Clie
 	ticketService := service.NewTicketRepository(ticketRepository)
 	tickethandler := handler.NewTicketHandler(ticketService)
 
-	return router.PublicRoutes(authHandler, tickethandler)
+	BlogRepository := repository.NewBlogRepository(db)
+	BlogService := service.NewBlogService(BlogRepository)
+	BlogHandler := handler.NewBlogHandler(BlogService)
+
+	return router.PublicRoutes(authHandler, tickethandler, BlogHandler)
 }
 
 func BuildPrivateRoutes(cfg *config.Config, db *gorm.DB, midtransClient snap.Client) []*router.Route {
@@ -35,6 +39,10 @@ func BuildPrivateRoutes(cfg *config.Config, db *gorm.DB, midtransClient snap.Cli
 	userService := service.NewUserService(userRepository)
 	userHandler := handler.NewUserHandler(cfg, userService)
 
+	BlogRepository := repository.NewBlogRepository(db)
+	BlogService := service.NewBlogService(BlogRepository)
+	BlogHandler := handler.NewBlogHandler(BlogService)
+
 	NotificationRepository := repository.NewNotificationRepository(db)
 	NotificationService := service.NewNotificationService(NotificationRepository)
 	NotificationHandler := handler.NewNotificationHandler(NotificationService)
@@ -43,6 +51,6 @@ func BuildPrivateRoutes(cfg *config.Config, db *gorm.DB, midtransClient snap.Cli
 	OrderService := service.NewOrderService(OrderRepository)
 	OrderHandler := handler.NewOrderHandler(OrderService)
 
-	return router.PrivateRoutes(userHandler, tickethandler, OrderHandler, NotificationHandler)
+	return router.PrivateRoutes(userHandler, tickethandler, BlogHandler, OrderHandler, NotificationHandler)
 
 }
