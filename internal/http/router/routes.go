@@ -159,10 +159,10 @@ func PrivateRoutes(
 
 		//Ticket
 		{
-			Method:  echo.POST,
+			Method:  echo.GET,
 			Path:    "/tickets/:id",
-			Handler: TicketHandler.CreateTicket,
-			Roles:   allRoles,
+			Handler: TicketHandler.FindAllTickets,
+			Roles:   onlyAdmin,
 		},
 		{
 			Method:  echo.POST,
@@ -231,7 +231,7 @@ func PrivateRoutes(
 			Method:  echo.POST,
 			Path:    "/order",
 			Handler: OrderHandler.CreateOrder,
-			Roles:   allRoles,
+			Roles:   onlyAdmin,
 		},
 
 		{

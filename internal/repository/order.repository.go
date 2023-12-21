@@ -83,7 +83,7 @@ func (r *OrderRepository) GetUserBalance(ctx context.Context, userID int64) (int
 	var userBalance int64
 	if err := r.db.WithContext(ctx).
 		Model(&entity.User{}).
-		Select("balance").
+		Select("wallet").
 		Where("id = ?", userID).
 		Find(&userBalance).Error; err != nil {
 		return 0, err
@@ -106,7 +106,7 @@ func (r *OrderRepository) UpdateUserBalance(ctx context.Context, userID int64, a
 	if err := r.db.WithContext(ctx).
 		Model(&entity.User{}).
 		Where("id = ?", userID).
-		Update("balance", newBalance).Error; err != nil {
+		Update("wallet", newBalance).Error; err != nil {
 		return err
 	}
 
