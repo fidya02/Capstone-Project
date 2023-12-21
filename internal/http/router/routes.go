@@ -231,7 +231,7 @@ func PrivateRoutes(
 			Method:  echo.POST,
 			Path:    "/order",
 			Handler: OrderHandler.CreateOrder,
-			Roles:   onlyAdmin,
+			Roles:   allRoles,
 		},
 
 		{

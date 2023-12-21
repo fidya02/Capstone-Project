@@ -7,11 +7,12 @@ CREATE TABLE IF NOT EXISTS orders (
     qty INT,
     total INTEGER,
     status VARCHAR(255),
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    order_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMPTZ,
-    updated_by VARCHAR(255),
-    deleted_by VARCHAR(255),
+    order_by VARCHAR(255),
+    update_by VARCHAR(255),
+    delete_by VARCHAR(255),
     FOREIGN KEY (ticket_id) REFERENCES tickets(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );

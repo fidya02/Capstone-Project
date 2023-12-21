@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 
 	"github.com/fidya02/Capstone-Project/entity"
 )
@@ -42,28 +43,34 @@ func NewOrderService(repository OrderRepository) *OrderService {
 	return &OrderService{repository}
 }
 
-// CreateOrder creates a new order in the OrderService.
-// It retrieves information about the ticket based on the ticket ID in the order.
-// It calculates the total price of the order.
-// It creates the order in the repository.
-// It updates the user's balance by deducting the total price of the order.
-// If any error occurs, it returns the error.
+// Updated CreateOrder method in OrderService to receive TicketService
 func (s *OrderService) CreateOrder(ctx context.Context, order *entity.Order) error {
-	// Retrieve information about the ticket based on the ticket ID
+	// Mendapatkan informasi tiket berdasarkan ID tiket dalam pesanan
 	ticket, err := s.repository.GetTicket(ctx, order.TicketID)
 	if err != nil {
 		return err
 	}
 
-	// Calculate the total price of the order
+	// Memeriksa ketersediaan tiket
+	if int64(ticket.Quantity) < order.Quantity {
+		return errors.New("ticket is not available")
+	}
+
+	// Melakukan perhitungan total harga pesanan
 	order.Total = ticket.Price * int64(order.Quantity)
 
-	// Create the order in the repository
+	// Membuat pesanan
 	if err := s.repository.CreateOrder(ctx, order); err != nil {
 		return err
 	}
 
-	// Deduct the total price from the user's balance
+	// Mengurangi ketersediaan tiket
+	ticket.Quantity -= order.Quantity
+	if err := s.repository.UpdateTicket(ctx, ticket); err != nil {
+		return err
+	}
+
+	// Mengurangi saldo pengguna
 	if err := s.repository.UpdateUserBalance(ctx, order.UserID, order.Total); err != nil {
 		return err
 	}
@@ -113,23 +120,34 @@ func (s *OrderService) GetTicketPrice(ctx context.Context, ticketID int64) (int6
 	return int64(ticket.Price), nil
 }
 
-// UserCreateOrder creates a new order for a user.
+// UserCreateOrder
 func (s *OrderService) UserCreateOrder(ctx context.Context, order *entity.Order) error {
-	// Get ticket information based on the ticket ID in the order.
+	// Mendapatkan informasi tiket berdasarkan ID tiket dalam pesanan
 	ticket, err := s.repository.GetTicket(ctx, order.TicketID)
 	if err != nil {
 		return err
 	}
 
-	// Calculate the total price of the order.
+	// Memeriksa ketersediaan tiket
+	if int64(ticket.Quantity) < order.Quantity {
+		return errors.New("ticket is not available")
+	}
+
+	// Melakukan perhitungan total harga pesanan
 	order.Total = ticket.Price * int64(order.Quantity)
 
-	// Create the order.
+	// Membuat pesanan
 	if err := s.repository.CreateOrder(ctx, order); err != nil {
 		return err
 	}
 
-	// Deduct user's balance.
+	// Mengurangi ketersediaan tiket
+	ticket.Quantity -= order.Quantity
+	if err := s.repository.UpdateTicket(ctx, ticket); err != nil {
+		return err
+	}
+
+	// Mengurangi saldo pengguna
 	if err := s.repository.UpdateUserBalance(ctx, order.UserID, order.Total); err != nil {
 		return err
 	}
@@ -137,8 +155,7 @@ func (s *OrderService) UserCreateOrder(ctx context.Context, order *entity.Order)
 	return nil
 }
 
-// GetOrderHistory returns the order history for a given user.
+// GetOrderHistory
 func (s *OrderService) GetOrderHistory(ctx context.Context, userID int64) ([]*entity.Order, error) {
-	// Call the repository's GetOrderByUserID method to fetch the order history for the user.
 	return s.repository.GetOrderByUserID(ctx, userID)
 }
