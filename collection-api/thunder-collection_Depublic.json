@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Depublic",
-    "dateExported": "2023-12-11T14:55:00.420Z",
+    "dateExported": "2023-12-22T00:53:40.457Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -14,7 +14,7 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2023-12-04T14:17:00.302Z",
-            "modified": "2023-12-11T13:29:12.387Z",
+            "modified": "2023-12-21T17:47:42.281Z",
             "headers": [],
             "params": [],
             "body": {
@@ -56,12 +56,12 @@
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-12-04T14:19:26.659Z",
-            "modified": "2023-12-11T13:21:55.310Z",
+            "modified": "2023-12-21T17:34:08.495Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAyMzAxNDE1fQ.1Hrr2l_wzn4z4ZcTtLgiGIgcjqsRROJ-7KuRALcnMUA"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMTgwNDU3fQ.LE7l6kl3yh-754zTugMgV_a2QKu8YaakpoIczmo3Vpg"
             },
             "tests": []
         },
@@ -93,21 +93,21 @@
             "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
             "containerId": "",
             "name": "UpdateUsers",
-            "url": "http://localhost:8080/api/v1/users/2",
+            "url": "http://localhost:8080/api/v1/users/4",
             "method": "PUT",
             "sortNum": 70000,
             "created": "2023-12-04T14:21:28.365Z",
-            "modified": "2023-12-11T13:03:50.207Z",
+            "modified": "2023-12-21T17:38:53.330Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\" : \"Panjii\"\n}",
+                "raw": "{\n  \"wallet\": 3000000\n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAyMzAwMjQwfQ.o0iOcUsn7y_BpswL71vx1Rye7hAKvD7LHxQX5_NoW_8"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMTgwOTA4fQ.olAMlleTmNO3J91XLevDf5vcX4-iv3YPoIyBafpwUms"
             },
             "tests": []
         },
@@ -152,16 +152,16 @@
             "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
             "containerId": "",
             "name": "SearchTicket",
-            "url": "http://localhost:8080/api/v1/tickets",
+            "url": "http://localhost:8080/api/v1/tickets/1",
             "method": "GET",
             "sortNum": 130000,
             "created": "2023-12-06T07:47:16.661Z",
-            "modified": "2023-12-11T14:17:15.226Z",
+            "modified": "2023-12-21T16:27:55.756Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAyMzA0NTEyfQ.nZZPGPxwi_1az69rYGZYkNEuehjitm3mq-CzGN6o-V4"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMTc2NjMzfQ.3T3cFH4VT2n2RnMjIEqV7Dqp9zhQJVRfb0kfizjkfd8"
             },
             "tests": []
         },
@@ -174,7 +174,7 @@
             "method": "POST",
             "sortNum": 140000,
             "created": "2023-12-08T12:27:56.466Z",
-            "modified": "2023-12-11T14:12:11.887Z",
+            "modified": "2023-12-21T16:23:27.030Z",
             "headers": [],
             "params": [],
             "body": {
@@ -184,7 +184,7 @@
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAyMzA0NTEyfQ.nZZPGPxwi_1az69rYGZYkNEuehjitm3mq-CzGN6o-V4"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMTc2MjkwfQ.K0HYkZPq86c2ZItoKfd8fKVf2GbEM4r0JdY4tbiwzBQ"
             },
             "tests": []
         },
@@ -304,6 +304,102 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAyMzA3MDgyfQ.Lp1WgikAkPU7FjPf9lLocvk-06GGyuZrdcK48Xj1zlI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "2c2218dd-715c-4c82-9770-f6755c23abc8",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "DeleteTicket",
+            "url": "http://localhost:8080/api/v1/ticket/1",
+            "method": "DELETE",
+            "sortNum": 247500,
+            "created": "2023-12-21T11:53:44.261Z",
+            "modified": "2023-12-21T11:53:54.266Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "48966eb7-8e22-49be-af9a-750b392ca487",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "CreateOrder",
+            "url": "http://localhost:8080/api/v1/order",
+            "method": "POST",
+            "sortNum": 250000,
+            "created": "2023-12-14T01:20:11.632Z",
+            "modified": "2023-12-21T18:05:59.679Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantity\": 1,\n  \"status\": \"available\",\n  \"ticket_id\": 3,\n  \"user_id\": 4\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMTgyNTQyfQ.B4XgBuWyBJzZxU5hVUNSWQKzig3tRaP-Z3wwdxebZmI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "c6875c81-2c95-4ab8-af8c-3a12f79ad83c",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "GetOrderDetails",
+            "url": "http://localhost:8080/api/v1/order",
+            "method": "GET",
+            "sortNum": 252500,
+            "created": "2023-12-14T01:20:23.478Z",
+            "modified": "2023-12-21T17:32:38.696Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMTgwNDU3fQ.LE7l6kl3yh-754zTugMgV_a2QKu8YaakpoIczmo3Vpg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "6294b76b-1f12-4be0-abd8-7c70174a5aca",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "CreateNotification",
+            "url": "http://localhost:8080/api/v1/notifications",
+            "method": "POST",
+            "sortNum": 261250,
+            "created": "2023-12-22T00:22:05.524Z",
+            "modified": "2023-12-22T00:49:53.277Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"type\": \"penundaan jam konser\",\r\n  \"message\": \"konser diundur dari jam yang semestinya\",\r\n  \"is_read\": false,\r\n  \"create_at\": \"2023-12-22T12:34:56Z\"\r\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMjA2Nzc3fQ.pQw9WFB8SdeTsnp5Aah4ISyx1tZKlacNKI-AAu9-8S8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "3ddbf511-dc9d-4f24-a755-5d2478b8f91b",
+            "colId": "43b02a6f-a1a2-4a31-b942-e91a2c6bdc05",
+            "containerId": "",
+            "name": "GetNotifications",
+            "url": "http://localhost:8080/api/v1/notifications",
+            "method": "GET",
+            "sortNum": 430000,
+            "created": "2023-12-22T00:50:57.098Z",
+            "modified": "2023-12-22T00:51:19.879Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlcHVibGljIiwiZW1haWwiOiJkZXB1YmxpY0BtYWlsLmNvbSIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzAzMjA2Nzc3fQ.pQw9WFB8SdeTsnp5Aah4ISyx1tZKlacNKI-AAu9-8S8"
             },
             "tests": []
         }
